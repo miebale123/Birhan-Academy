@@ -19,7 +19,7 @@
     >
       <div class="flex items-end">congradulat<Flame />ons!</div>
       <div>መደብ ትምህርቲ ህፃናት</div>
-      <div>ብስእላዊን ካልኦትን ኣብ  </div>
+      <div>ብስእላዊን ካልኦትን ኣብ</div>
       <div class="mt-10 ml-96">ኣለና።</div>
     </div>
 

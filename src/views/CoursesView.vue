@@ -1,20 +1,23 @@
 <template>
-  <div class="grid grid-cols-3 gap-8 p-4 " :key="colorKey">
+  <div class="grid grid-cols-3 gap-8 p-4" :key="colorKey">
     <span v-for="(course, courseIndex) in courses" :key="courseIndex">
       <course>
-        <button
+        <router-link
+          to="/Contents"
           :style="{
             background: currentColor,
             color: `white`,
             animationDelay: `${courseIndex * 0.25}s`,
           }"
-           class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl"
+          class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl"
         >
           {{ course }}
-        </button>
+        </router-link>
         <template #calendar>{{ calendar[courseIndex] }}</template>
         <template #grade>{{ grade[courseIndex] }}</template>
-        <p class="break-words whitespace-normal text-indigo-900 mt-8">{{ descriptions[courseIndex] }}</p>
+        <p class="break-words whitespace-normal text-indigo-900 mt-8">
+          {{ descriptions[courseIndex] }}
+        </p>
       </course>
     </span>
   </div>
@@ -27,9 +30,9 @@ export default {
   components: { course },
   data() {
     return {
-      courses: ['food science', 'Geography', 'Math', 'Science', 'sport', ],
+      courses: ['Food science', 'Geography', 'Math', 'English', 'Sport'],
       calendar: ['1 hour ago', '2 days ago', '2 months ago'],
-      descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum','lorem epsum'],
+      descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum'],
       grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
       colors: ['purple', 'green'], // Array of colors
       colorIndex: 0,
