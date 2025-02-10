@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4 gap-8 p-1 " :key="colorKey">
+  <div class="grid grid-cols-3 gap-8 p-1 " :key="colorKey">
     <span v-for="(course, courseIndex) in courses" :key="courseIndex">
       <course>
         <h2
@@ -13,7 +13,6 @@
           {{ course }}
         </h2>
         <template #calendar>{{ calendar[courseIndex] }}</template>
-        <template #instructor>{{ instructor[courseIndex] }}</template>
         <p class="break-words whitespace-normal text-indigo-900">{{ descriptions[courseIndex] }}</p>
       </course>
     </span>
@@ -28,8 +27,7 @@ export default {
   data() {
     return {
       courses: ['food science', 'Geography', 'Math', 'Science', 'sport', ],
-      calendar: ['30min', '1hour', '30days'],
-      instructor: ['Simon', 'David', 'Peter', ],
+      calendar: ['1 hour ago', '2 days ago', '2 months ago'],
       descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum','lorem epsum'],
       colors: ['purple', 'green'], // Array of colors
       colorIndex: 0,
