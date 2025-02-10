@@ -27,7 +27,7 @@
 
     <div class="flex items-center gap-2 sm:gap-4 pr-16">
       <router-link
-        to="/loginView"
+        to="/signupView"
         class="relative p-2 bg-blue-400 text-white rounded-md hover:bg-blue-600 animate-bounce"
       >
         sign up</router-link
