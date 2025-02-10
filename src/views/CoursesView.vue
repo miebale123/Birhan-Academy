@@ -27,7 +27,7 @@ export default {
   components: { course },
   data() {
     return {
-      courses: ['python', 'javascript', 'networking', 'machine-learning', 'graphics', 'web-development', 'data-science', 'cyber-security', 'blockchain', 'iot'],
+      courses: ['food science', 'Geography', 'Math', 'Science', 'sport', ],
       calendar: ['30min', '1hour', '30days'],
       instructor: ['Simon', 'David', 'Peter', ],
       descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum','lorem epsum'],
