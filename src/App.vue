@@ -12,4 +12,4 @@ import FooterC from './components/footerC.vue'
 export default {
   components: { RouterView, HeaderC, FooterC },
 }
-</script>
+</script> 

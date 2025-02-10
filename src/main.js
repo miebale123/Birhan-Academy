@@ -9,4 +9,8 @@ app.use(router)
 app.mount('#app')
 
 // Exclude lottie-player from Vue's component resolution
-console.clear()
+// setTimeout(() => {
+//   console.clear();
+// }, 100);
+
+

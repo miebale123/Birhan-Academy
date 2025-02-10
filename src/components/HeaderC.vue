@@ -2,11 +2,7 @@
   <div
     class="flex items-center justify-center bg-gradient-to-r from-blue-200 to-purple-300 text-sm p-3"
   >
-    <img
-      src="./Icons/graduate.svg"
-      alt="Graduate Logo"
-      class="sm:w-10 md:w-12 lg:w-14"
-    />
+    <img src="./Icons/graduate.svg" alt="Graduate Logo" class="sm:w-10 md:w-12 lg:w-14" />
     <!-- <router-link to="/about">birhan academy</router-link> -->
 
     <div class="hidden sm:flex items-center space-x-4 relative">
@@ -27,7 +23,7 @@
 
     <div class="flex items-center gap-2 sm:gap-4 pr-16">
       <router-link
-        to="/signupView"
+        to="/Signup"
         class="relative p-2 bg-blue-400 text-white rounded-md hover:bg-blue-600 animate-bounce"
       >
         sign up</router-link
