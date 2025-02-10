@@ -15,12 +15,12 @@
       }"
     ></div>
     <div
-      class="absolute top-40 right-40 animate-slide-in-left text-xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-red-200"
+      class="absolute top-40 right-32 animate-slide-in-left text-7xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-red-200"
     >
-      <div class="flex items-end">congradulat<Flame />ons! ናይ</div>
+      <div class="flex items-end">congradulat<Flame />ons!</div>
       <div>መደብ ትምህርቲ ህፃናት</div>
-      <div>ብስእላዊን ካልኦት ሰሓብትን </div>
-      <div>ካብ ይርኸቡ።</div>
+      <div>ብስእላዊን ካልኦትን ኣብ  </div>
+      <div class="mt-10 ml-96">ኣለና።</div>
     </div>
 
     <div class="absolute bottom-16 h-96 animate-slide-in-right left-64">
