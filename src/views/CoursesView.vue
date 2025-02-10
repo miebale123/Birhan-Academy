@@ -1,19 +1,20 @@
 <template>
-  <div class="grid grid-cols-3 gap-8 p-1 " :key="colorKey">
+  <div class="grid grid-cols-3 gap-8 p-4 " :key="colorKey">
     <span v-for="(course, courseIndex) in courses" :key="courseIndex">
       <course>
-        <h2
+        <button
           :style="{
             background: currentColor,
             color: `white`,
             animationDelay: `${courseIndex * 0.25}s`,
           }"
-           class="animate-fade-in p-2"
+           class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl"
         >
           {{ course }}
-        </h2>
+        </button>
         <template #calendar>{{ calendar[courseIndex] }}</template>
-        <p class="break-words whitespace-normal text-indigo-900">{{ descriptions[courseIndex] }}</p>
+        <template #grade>{{ grade[courseIndex] }}</template>
+        <p class="break-words whitespace-normal text-indigo-900 mt-8">{{ descriptions[courseIndex] }}</p>
       </course>
     </span>
   </div>
@@ -29,6 +30,7 @@ export default {
       courses: ['food science', 'Geography', 'Math', 'Science', 'sport', ],
       calendar: ['1 hour ago', '2 days ago', '2 months ago'],
       descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum','lorem epsum'],
+      grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
       colors: ['purple', 'green'], // Array of colors
       colorIndex: 0,
       course,

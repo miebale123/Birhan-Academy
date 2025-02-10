@@ -1,12 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="ml-1 mr-1 mt-[20px]">
+  <div class="ml-1 mr-1 mt-[24px]">
     <div class="ml-2.5">
       <div
-        class="-ml-[5px] w-[20px] h-[40px] rounded-[50%_50%_35%_35%] bg-gradient-to-t from-[lightblue] via-[yellow] to-white shadow-[0_0_25px_5px_orange] origin-bottom animate-glowNshrink"
+        class="-ml-[5px] w-[20px] h-[32px] rounded-[50%_50%_35%_35%] bg-gradient-to-t from-[lightblue] via-[yellow] to-white shadow-[0_0_25px_5px_orange] origin-bottom animate-glowNshrink"
       ></div>
       <div
-        class="-mt-[25px] w-[10px] h-[20px] rounded-[50%_50%_35%_35%] bg-blue-500 origin-bottom animate-glowNshrink"
+        class="-mt-[16px] w-[8px] h-[14px] rounded-[50%_50%_35%_35%] bg-blue-500 origin-bottom animate-glowNshrink"
       ></div>
     </div>
     <div

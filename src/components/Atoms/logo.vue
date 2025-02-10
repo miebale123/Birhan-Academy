@@ -1,6 +1,4 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<!-- velocityY = vy -->
-<!-- 10 was assigned to ballsize-->
 <template>
   <div ref="container" class="relative">
     <div
@@ -11,7 +9,7 @@
         left: ball.x + 'px',
         transform: 'rotate(' + ball.rotation + 'deg)',
       }"
-      class="bg-yellow-400 font-bold rounded w-10 h-16 absolute flex justify-center items-center text-red-600 text-4xl"
+      class="bg-yellow-400 font-bold  w-10 h-16 absolute flex justify-center items-center text-red-600 text-4xl"
     >
       {{ ball.text }}
     </div>
@@ -25,7 +23,7 @@ export default {
       // ballSize: 10,
       gravity: 0.5,
       bounceFactor: 0.5,
-      rollSpeed: 5,
+      rollSpeed: 8,
       containerWidth: 0,
       groundLevel: window.innerHeight - 400, //height
       balls: [],
@@ -41,12 +39,12 @@ export default {
       const spacing = (this.containerWidth - numBalls * 10) / (numBalls + 200)
       // Initialize balls
       for (let i = 0; i < numBalls; i++) {
-        const finalX = spacing * (i + 1) + 27 * i // Evenly distribute
+        const finalX = spacing * (i + 1) + 30 * i // Evenly distribute
 
         this.balls.push({
           text: 'ሚዳካኣ ንሃርብ'.charAt(i),
           y: Math.random() * Math.PI * 1, // Start above screen
-          vy: 0,
+          vy: 0, //  velocity of y = vy
           x: this.containerWidth, // Start off-screen right
           finalX: finalX,
           rotation: 0, // Initial rotation
@@ -67,9 +65,9 @@ export default {
       }
 
       // Horizontal movement
-      if (ball.x > 1200 - ball.finalX) {
+      if (ball.x > 1000 - ball.finalX) {
         ball.x -= this.rollSpeed
-        ball.rotation -= 15 // Rotation effect
+        ball.rotation -= 10 // Rotation effect
       } else {
         // Smoothly bring the rotation back to 0 when it stops
         ball.rotation = ball.rotation * 0.8 // This gradually reduces rotation over time

@@ -14,9 +14,13 @@
         height: point.size + 'px',
       }"
     ></div>
-    <div class="absolute top-32 right-48 animate-slide-in-left">
-      <div :class="customstyle" class="flex items-end">congradulat<Flame />ons!</div>
-      <div :class="customstyle" class="top-80 right-72">lets you learn</div>
+    <div
+      class="absolute top-40 right-40 animate-slide-in-left text-xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-red-200"
+    >
+      <div class="flex items-end">congradulat<Flame />ons! ናይ</div>
+      <div>መደብ ትምህርቲ ህፃናት</div>
+      <div>ብስእላዊን ካልኦት ሰሓብትን </div>
+      <div>ካብ ይርኸቡ።</div>
     </div>
 
     <div class="absolute bottom-16 h-96 animate-slide-in-right left-64">
@@ -42,8 +46,6 @@ export default {
     return {
       programmer,
       points: this.generatePoints(),
-      customstyle:
-        'text-xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-red-200 flex',
     }
   },
   methods: {
