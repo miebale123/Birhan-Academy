@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-3 gap-8 p-1 " :key="colorKey">
+  <div class="grid grid-cols-4 gap-8 p-1 " :key="colorKey">
     <span v-for="(course, courseIndex) in courses" :key="courseIndex">
       <course>
         <h2
@@ -27,9 +27,9 @@ export default {
   components: { course },
   data() {
     return {
-      courses: ['python', 'javascript', 'networking', 'machine-learning', 'graphics'],
+      courses: ['python', 'javascript', 'networking', 'machine-learning', 'graphics', 'web-development', 'data-science', 'cyber-security', 'blockchain', 'iot'],
       calendar: ['30min', '1hour', '30days'],
-      instructor: ['By Dr John', '1hour', '30days'],
+      instructor: ['Simon', 'David', 'Peter', ],
       descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum','lorem epsum'],
       colors: ['purple', 'green'], // Array of colors
       colorIndex: 0,

@@ -25,7 +25,7 @@ export default {
       // ballSize: 10,
       gravity: 0.5,
       bounceFactor: 0.5,
-      rollSpeed: 4,
+      rollSpeed: 5,
       containerWidth: 0,
       groundLevel: window.innerHeight - 400, //height
       balls: [],
@@ -37,14 +37,14 @@ export default {
   },
   methods: {
     createBalls() {
-      const numBalls = 14
+      const numBalls = 9
       const spacing = (this.containerWidth - numBalls * 10) / (numBalls + 200)
       // Initialize balls
       for (let i = 0; i < numBalls; i++) {
-        const finalX = spacing * (i + 1) + 25 * i // Evenly distribute
+        const finalX = spacing * (i + 1) + 27 * i // Evenly distribute
 
         this.balls.push({
-          text: 'ymedacA nahriB'.charAt(i),
+          text: 'ሚዳካኣ ንሃርብ'.charAt(i),
           y: Math.random() * Math.PI * 1, // Start above screen
           vy: 0,
           x: this.containerWidth, // Start off-screen right
@@ -67,9 +67,9 @@ export default {
       }
 
       // Horizontal movement
-      if (ball.x > 1300 - ball.finalX) {
+      if (ball.x > 1200 - ball.finalX) {
         ball.x -= this.rollSpeed
-        ball.rotation -= 10 // Rotation effect
+        ball.rotation -= 15 // Rotation effect
       } else {
         // Smoothly bring the rotation back to 0 when it stops
         ball.rotation = ball.rotation * 0.8 // This gradually reduces rotation over time

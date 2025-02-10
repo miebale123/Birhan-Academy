@@ -3,7 +3,7 @@
   <footer>
     <div class="bg-gray-400 text-white p-8 justify-end">
       <div class="flex items-center justify-center space-x-24">
-        <img src="./" alt="Passion Academy" class="h-16" />
+        <img src="./" alt="Birhan Academy" class="h-16" />
         <div v-for="section in footerSections" :key="section.id">
           <h2 class="underline underline-offset-8 font-bold mb-4">{{ section.title }}</h2>
           <ul>

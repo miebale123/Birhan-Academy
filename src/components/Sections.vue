@@ -4,11 +4,11 @@
   <div class="bg-gradient-to-r from-yellow-100 to-green-300">
     <section class="flex items-center justify-center h-[600px] gap-48">
       <div class="h-72">
-        <vue3-lottie :animationData="cyber"></vue3-lottie>
+        <vue3-lottie :animationData="clearContent"></vue3-lottie>
         <h2 class="text-center">{{ detail }}</h2>
       </div>
       <div class="h-72">
-        <vue3-lottie :animationData="debugging"></vue3-lottie>
+        <vue3-lottie :animationData="secure"></vue3-lottie>
         <p class="text-center">{{ detail }}</p>
       </div>
     </section>
@@ -23,15 +23,14 @@
   <section class="bg-gray-300 flex items-center justify-center h-[400px] gap-48">
     <p class="text-center">{{ detail }}</p>
     <div class="w-72">
-      <vue3-lottie :animationData="machineLearning"></vue3-lottie>
+      <!-- <vue3-lottie :animationData="collaborate"></vue3-lottie> -->
     </div>
   </section>
 </template>
 
 <script>
-import cyber from '@/assets/cyber.json'
-import debugging from '@/assets/debugging.json'
-import machineLearning from '@/assets/machine-learning.json'
+import secure from '@/assets/secure.json'
+import clearContent from '@/assets/clearContent.json'
 import { Vue3Lottie } from 'vue3-lottie'
 
 export default {
@@ -42,9 +41,8 @@ export default {
   data() {
     return {
       detail: 'description',
-      cyber,
-      debugging,
-      machineLearning,
+      secure,
+      clearContent,
     }
   },
 }
