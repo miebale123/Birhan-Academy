@@ -1,26 +1,24 @@
 <template>
   <div class="grid grid-cols-3 gap-8 p-4" :key="colorKey">
-    <span v-for="(course, courseIndex) in courses" :key="courseIndex">
-
-        <course :style="{ backgroundImage: `url(${courseImages[courseIndex]})` }">
-        <router-link
-          to="/Contents"
-          :style="{
-            background: currentColor,
-            color: `white`,
-            animationDelay: `${courseIndex * 0.25}s`,
-          }"
-          class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl"
-        >
-          {{ course }}
-        </router-link>
-        <template #calendar>{{ calendar[courseIndex] }}</template>
-        <template #grade>{{ grade[courseIndex] }}</template>
-        <p class="break-words whitespace-normal text-indigo-900 mt-8">
-          {{ descriptions[courseIndex] }}
-        </p>
-      </course>
-    </span>
+    <course
+      v-for="(course, courseIndex) in courses"
+      :key="courseIndex"
+      :style="{ background: `url(${courseImages[courseIndex]})` }"
+      class="rounded-xl"
+    >
+      <router-link
+        to="/Contents"
+        :style="{
+          background: currentColor,
+          color: `white`,
+          animationDelay: `${courseIndex * 0.25}s`,
+        }"
+        class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl"
+      >
+        {{ course }}
+      </router-link>
+      <template #calendar>{{ calendar[courseIndex] }}</template>
+    </course>
   </div>
 </template>
 
@@ -28,19 +26,20 @@
 import course from '@/components/Atoms/course.vue'
 import biology from '@/assets/biology.avif'
 import soccer from '@/assets/soccer.jpg'
+import geography from '@/assets/geography.jpg'
 export default {
   components: { course },
   data() {
     return {
       courses: ['Food science', 'Geography', 'Math', 'Biology', 'Sport'],
       calendar: ['1 hour ago', '2 days ago', '2 months ago', '2days ago', 'a year ago'],
-      descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum'],
+      // descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum'],
       grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
       colors: ['purple', 'black'], // Array of colors
       colorIndex: 0,
       course,
       currentCourse: '',
-      courseImages: ['', '', '', biology, soccer]
+      courseImages: ['', geography, '', biology, soccer],
     }
   },
 

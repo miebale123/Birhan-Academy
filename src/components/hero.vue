@@ -15,7 +15,7 @@
       }"
     ></div>
     <div
-      class="absolute top-40 right-32 animate-slide-in-left text-7xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-red-200"
+      class="absolute top-40 right-32 animate-slide-in-left text-7xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-300"
     >
       <div class="flex items-end">congradulat<Flame />ons!</div>
       <div>መደብ ትምህርቲ ህፃናት</div>
