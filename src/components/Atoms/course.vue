@@ -49,7 +49,7 @@ export default {
   }
 }
 .shake {
-  animation: shake 0.5s infinite;
-  animation-delay: 2s; /* Pause for 2.5 seconds */
+  animation: shake 0.25s infinite;
+  animation-delay: 2s; /* Pause for 2 seconds */
 }
 </style>

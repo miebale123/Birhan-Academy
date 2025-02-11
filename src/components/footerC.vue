@@ -1,57 +1,34 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <footer>
-    <div class="bg-gray-700 text-white p-8 justify-end">
+  <footer class="text-white">
+    <div class="bg-gray-700 p-16 justify-end">
       <div class="flex items-center justify-center space-x-24">
-        <img src="../assets/graduate.svg" alt="birhan Academy" class="h-16" />
-        <div v-for="section in footerSections" :key="section.id">
-          <h2 class="underline underline-offset-8 font-bold mb-4">{{ section.title }}</h2>
-          <ul>
-            <li v-for="link in section.links" :key="link">
-              {{ link }}
-            </li>
-          </ul>
+        <div class="flex items-center space-x-8">
+          <img src="./Icons/graduate.svg" alt="birhan Academy" class="h-16" />
+          <p>birhan academy</p>
+        </div>
+        <div class="grid grid-col-1 gap-4">
+          <p class="font-bold">Links</p>
+          <router-link to="/about">about </router-link>
+          <router-link to="/learn_more">learn more</router-link>
+        </div>
+        <div class="grid grid-col-1 gap-4">
+          <p class="font-bold">Support</p>
+          <router-link to="/contact_us">contact us</router-link>
+          <router-link to="/FAQ">FAQ</router-link>
+        </div>
+        <div class="grid grid-col-1 gap-4">
+          <p class="font-bold">Legal</p>
+          <router-link to="/Privacy_Policy">Privacy_Policy</router-link>
+          <router-link to="/Terms_and_Conditions">Terms and Conditions</router-link>
         </div>
       </div>
-      <h2 class="text-right mr-28">follow us on</h2>
-      <div class="flex">
-        <h2 class="ml-16">©2025 birhan academy Co., Ltd. All rights reserved.</h2>
-        <div class="flex gap-2 pb-8 ml-auto pr-28">
-          <img src="" alt="" />
-        </div>
+    </div>
+    <h2 class="text-right mr-28">follow us on</h2>
+    <div class="flex">
+      <h2 class="ml-16">©2025 birhan academy Co., Ltd. All rights reserved.</h2>
+      <div class="flex gap-2 pb-8 ml-auto pr-28">
+        <img src="" alt="" />
       </div>
     </div>
   </footer>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      footerSections: [
-        {
-          title: 'Links',
-          links: ['About', 'related', 'Learn More'],
-          id: 1,
-        },
-
-        {
-          title: 'Support',
-          links: ['Getting Started', 'Contact', 'FAQ'],
-          id: 2,
-        },
-        {
-          title: 'Legal',
-          links: ['Privacy Policy', 'Terms and Conditions', 'Cookie Policy'],
-          id: 3,
-        },
-      ],
-    }
-  },
-}
-</script>
-
-<style>
-li {
-  font-weight: 100;
-}
-</style>
