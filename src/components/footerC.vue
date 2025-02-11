@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <footer>
-    <div class="bg-gray-400 text-white p-8 justify-end">
+    <div class="bg-gray-700 text-white p-8 justify-end">
       <div class="flex items-center justify-center space-x-24">
         <img src="../assets/graduate.svg" alt="birhan Academy" class="h-16" />
         <div v-for="section in footerSections" :key="section.id">
