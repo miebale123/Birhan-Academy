@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-center gap-16 bg-gradient-to-r from-blue-200 to-green-200 text-sm p-3 w-full"
+    class="flex items-center justify-center gap-16 bg-gradient-to-r from-blue-400 to-green-200 text-sm p-3 w-full"
   >
     <router-link to="/" class="flex justify-center items-center space-x-8">
       <img src="./Icons/graduate.svg" alt="Graduate Logo" class="sm:w-10 md:w-12 lg:w-14 ml-40" />

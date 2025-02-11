@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-white">
+  <footer class="text-white ">
     <div class="p-16 justify-end">
       <div class="flex items-center justify-center space-x-24">
         <div class="flex items-center space-x-8">
@@ -23,13 +23,11 @@
         </div>
       </div>
     </div>
-    <h2 class="text-right p-8 mr-16">follow us on</h2>
-    <div class="flex">
-      <h2 class="ml-16">©2025 birhan academy Co., Ltd. All rights reserved.</h2>
-      <!-- the images are facebook, insta, telegram and X -->
-      <!-- <div class="flex gap-2 pb-8 ml-auto pr-28">
-        <img src="" alt="" />
-      </div> -->
+    <div class="flex justify-around">
+      <h2>©2025 birhan academy Co., Ltd. All rights reserved.</h2>
+      <h2>follow us on</h2>
     </div>
+    <!-- the images are facebook, insta, telegram and X -->
+        <!-- <img src="" alt="" /> -->
   </footer>
 </template>

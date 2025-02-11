@@ -27,19 +27,20 @@ import course from '@/components/Atoms/course.vue'
 import biology from '@/assets/biology.avif'
 import soccer from '@/assets/soccer.jpg'
 import geography from '@/assets/geography.jpg'
+import watermelon from '@/assets/watermelon.jpg'
+import math from '@/assets/math.jpg'
 export default {
   components: { course },
   data() {
     return {
       courses: ['Food science', 'Geography', 'Math', 'Biology', 'Sport'],
       calendar: ['1 hour ago', '2 days ago', '2 months ago', '2days ago', 'a year ago'],
-      // descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum'],
       grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
-      colors: ['purple', 'black'], // Array of colors
+      colors: ['purple', 'black'],
       colorIndex: 0,
       course,
       currentCourse: '',
-      courseImages: ['', geography, '', biology, soccer],
+      courseImages: [watermelon, geography, math, biology, soccer],
     }
   },
 

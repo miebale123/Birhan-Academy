@@ -18,9 +18,9 @@
       class="absolute top-40 right-32 animate-slide-in-left text-7xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-300"
     >
       <div class="flex items-end">congradulat<Flame />ons!</div>
-      <div>መደብ ትምህርቲ ህፃናት</div>
-      <div>ብስእላዊን ካልኦትን ኣብ</div>
-      <div class="mt-10 ml-96">ኣለና።</div>
+      <div>መደብ ትምህርቲ ቆልዑ</div>
+      <div>ብስእላውን ካልኦትን ኣብ</div>
+      <div class="mt-10 ml-96">ኣሎ!</div>
     </div>
 
     <div class="absolute bottom-16 h-96 animate-slide-in-right left-64">
