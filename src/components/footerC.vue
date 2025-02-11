@@ -3,7 +3,7 @@
   <footer>
     <div class="bg-gray-400 text-white p-8 justify-end">
       <div class="flex items-center justify-center space-x-24">
-        <img src="./" alt="Birhan Academy" class="h-16" />
+        <img src="../assets/graduate.svg" alt="birhan Academy" class="h-16" />
         <div v-for="section in footerSections" :key="section.id">
           <h2 class="underline underline-offset-8 font-bold mb-4">{{ section.title }}</h2>
           <ul>
@@ -15,7 +15,7 @@
       </div>
       <h2 class="text-right mr-28">follow us on</h2>
       <div class="flex">
-        <h2 class="ml-16">©2025 mekelle university Co., Ltd. All rights reserved.</h2>
+        <h2 class="ml-16">©2025 birhan academy Co., Ltd. All rights reserved.</h2>
         <div class="flex gap-2 pb-8 ml-auto pr-28">
           <img src="" alt="" />
         </div>
