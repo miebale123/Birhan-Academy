@@ -1,8 +1,6 @@
-<!-- eslint-disable vue/multi-word-component-names -->
+eslint-disable vue/multi-word-component-names
 <template>
   <div class="flex h-screen text-white items-center justify-center">
-    
-
     <div class="flex items-center justify-center w-1/2">
       <div class="w-1/2 max-w-md p-6 rounded-lg bg-blue-900">
         <h2 class="text-2xl font-bold text-center mb-6">Sign up</h2>

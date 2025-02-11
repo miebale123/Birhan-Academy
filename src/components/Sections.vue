@@ -28,7 +28,7 @@
   <section
     class="bg-gray-700 flex items-center justify-center h-[400px] gap-20 text-red-200 font-bold text-3xl break-words whitespace-normal"
   >
-  <video src="../assets/run.mp4" controls class="h-[300px] rounded-full"></video>
+  <video src="../assets/run.mp4"  class="h-[300px] rounded-full" autoplay loop></video>
     <div>these children are eager to learn! how about you?</div>
   </section>
 </template>
