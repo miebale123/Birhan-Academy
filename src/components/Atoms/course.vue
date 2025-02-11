@@ -2,10 +2,10 @@
 <template>
   <div
     class="text-sm rounded p-2 pr-16 pl-16 h-80 text-center "
-    style="background: url(https://i.ibb.co/qCkd9jS/img1.jpg)"
+
   >
     <slot></slot>
-    <div class="grid grid-cols-2 gap-4  text-sm mt-32 ">
+    <div class="grid grid-cols-2 gap-4  text-sm mt-32 font-bold">
       <div class="bg-gray-100 bg-opacity-40 rounded p-1 flex gap-4 h-8 w-40 items-center">
         <img src="../Icons/calendar.svg" alt="" />
         <slot name="calendar"></slot>

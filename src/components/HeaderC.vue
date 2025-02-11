@@ -12,6 +12,7 @@
           <span class="absolute animate-ping rounded-full size-3 bg-sky-400"></span>
           <span class="absolute size-3 rounded-full bg-sky-500"></span>
         </span>
+
         <button class="bg-amber-200 p-1 rounded text-purple-500">courses</button>
       </router-link>
     </div>

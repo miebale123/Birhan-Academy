@@ -1,7 +1,8 @@
 <template>
   <div class="grid grid-cols-3 gap-8 p-4" :key="colorKey">
     <span v-for="(course, courseIndex) in courses" :key="courseIndex">
-      <course>
+
+        <course :style="{ backgroundImage: `url(${courseImages[courseIndex]})` }">
         <router-link
           to="/Contents"
           :style="{
@@ -25,19 +26,21 @@
 
 <script>
 import course from '@/components/Atoms/course.vue'
-
+import biology from '@/assets/biology.avif'
+import soccer from '@/assets/soccer.jpg'
 export default {
   components: { course },
   data() {
     return {
-      courses: ['Food science', 'Geography', 'Math', 'English', 'Sport'],
-      calendar: ['1 hour ago', '2 days ago', '2 months ago'],
+      courses: ['Food science', 'Geography', 'Math', 'Biology', 'Sport'],
+      calendar: ['1 hour ago', '2 days ago', '2 months ago', '2days ago', 'a year ago'],
       descriptions: ['lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum', 'lorem epsum'],
       grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
-      colors: ['purple', 'green'], // Array of colors
+      colors: ['purple', 'black'], // Array of colors
       colorIndex: 0,
       course,
       currentCourse: '',
+      courseImages: ['', '', '', biology, soccer]
     }
   },
 
