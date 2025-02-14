@@ -12,7 +12,7 @@
           <!-- <router-link to="/learn_more">learn more</router-link> -->
         </div>
         <div class="grid grid-col-1 gap-4" >
-          <p class="font-bold ">Support</p>
+          <p class="font-bold">Support</p>
           <!-- <router-link to="/contact_us">contact us</router-link> -->
           <!-- <router-link to="/FAQ">FAQ</router-link> -->
         </div>
