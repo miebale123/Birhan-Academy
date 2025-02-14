@@ -1,23 +1,21 @@
 <template>
   <div class="grid grid-cols-3 gap-8 p-4" :key="colorKey">
     <course
-      v-for="(course, courseIndex) in courses"
-      :key="courseIndex"
-      :style="{ background: `url(${courseImages[courseIndex]})` }"
+      v-for="(course, index) in courses"
+      :key="index"
+      :style="{ background: `url(${images[index]})` }"
       class="rounded-xl"
     >
       <router-link
         to="/Contents"
         :style="{
           background: currentColor,
-          color: `white`,
-          animationDelay: `${courseIndex * 0.25}s`,
+          animationDelay: `${index * 0.25}s`,
         }"
-        class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl"
+        class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl opacity-20 text-white"
       >
         {{ course }}
       </router-link>
-      <template #calendar>{{ calendar[courseIndex] }}</template>
     </course>
   </div>
 </template>
@@ -34,13 +32,11 @@ export default {
   data() {
     return {
       courses: ['Food science', 'Geography', 'Math', 'Biology', 'Sport'],
-      calendar: ['1 hour ago', '2 days ago', '2 months ago', '2days ago', 'a year ago'],
       grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
-      colors: ['purple', 'black'],
+      colors: ['purple', 'black', 'green'],
       colorIndex: 0,
       course,
-      currentCourse: '',
-      courseImages: [watermelon, geography, math, biology, soccer],
+      images: [watermelon, geography, math, biology, soccer],
     }
   },
 
@@ -76,13 +72,24 @@ export default {
   0% {
     opacity: 0;
   }
+  25% {
+    opacity: 0.25;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  75%{
+    opacity: 0.75;
+    background: #000;
+  }
+
   100% {
     opacity: 1;
   }
-}
 
-.animate-fade-in {
-  animation: fade-in 0.5s ease-in-out forwards;
-  opacity: 0;
 }
+  .animate-fade-in {
+    animation: fade-in 1s ease-in-out forwards;
+    opacity: 0;
+  }
 </style>

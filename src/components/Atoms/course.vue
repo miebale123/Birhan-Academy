@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="text-sm rounded p-2 pr-16 pl-16 h-80 text-center">
+  <div class="text-sm rounded p-2 pl-16 h-80 text-center hover:p-5">
     <slot></slot>
     <div class="grid grid-cols-2 gap-4 text-sm mt-60 font-bold">
       <div class="bg-gray-100 bg-opacity-40 rounded p-1 flex gap-4 h-8 w-40 items-center">
         <img src="../Icons/calendar.svg" alt="" />
-        <slot name="calendar"></slot>
+        <!-- <slot name="calendar"></slot> -->
       </div>
 
       <div class="bg-blue-500 text-white justify-center rounded flex h-8 items-center shake">

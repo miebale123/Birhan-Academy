@@ -10,15 +10,13 @@
     <div class="hidden sm:flex items-center space-x-8 relative">
       <router-link to="/" class="text-blue-700 underline">home</router-link>
       <router-link to="/Courses">
-        <span class="absolute ml-12">
+        <!-- <span class="absolute ml-12">
           <span class="absolute animate-ping rounded-full size-3 bg-sky-400"></span>
           <span class="absolute size-3 rounded-full bg-sky-500"></span>
-        </span>
-
+        </span> -->
         <button class="bg-amber-200 p-1 rounded text-purple-500">courses</button>
       </router-link>
     </div>
-
     <search :items="courses" @courseSearched="courseSearched" />
 
     <div class="flex items-center gap-2 sm:gap-4 pr-16">
@@ -44,7 +42,7 @@ export default {
   components: { search },
   data() {
     return {
-      courses: ['introduction to python'], // i know i should emit the courses from coursesView to here but i might need help with that
+      courses: [], 
     }
   },
   methods: {

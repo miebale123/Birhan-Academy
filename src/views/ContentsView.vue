@@ -1,6 +1,35 @@
 <template>
   <div>
-    <!-- i think i need to have contents to be seen here jossy but
- they come only from backend. No need for content modification from frontend  -->
+    <ul>
+      <li v-for="item in items" :key="item.id">
+        {{ item._id }}
+      </li>
+    </ul>
   </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      items: []
+    };
+  },
+  created() {
+    this.fetchItems();
+  },
+  methods: {
+    async fetchItems() {
+      try {
+        const response = await axios.get('http://localhost:5000/items');
+        this.items = response.data;
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
+    }
+
+  }
+};
+</script>
