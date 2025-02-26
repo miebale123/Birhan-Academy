@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="h-[700px] bg-black">
-    <Logo />
     <Fireworks />
     <div
       v-for="(point, index) in points"
@@ -20,7 +19,7 @@
       <div class="flex items-end">congradulat<Flame />ons!</div>
       <div>መደብ ትምህርቲ ቆልዑ</div>
       <div>ብስእላውን ካልኦትን ኣብ</div>
-      <div class="mt-10 ml-96">ኣሎ!</div>
+      <p>ኣሎ!</p>
     </div>
 
     <div class="absolute bottom-16 h-96 animate-slide-in-right left-64">
@@ -38,10 +37,9 @@ import { Vue3Lottie } from 'vue3-lottie'
 import programmer from '../assets/programmer.json'
 import Fireworks from './Atoms/fireworks.vue'
 import Flame from './Atoms/flame.vue'
-import Logo from './Atoms/logo.vue'
 
 export default {
-  components: { Vue3Lottie, Fireworks, Flame, Logo },
+  components: { Vue3Lottie, Fireworks, Flame },
   data() {
     return {
       programmer,

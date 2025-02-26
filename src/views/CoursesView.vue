@@ -1,10 +1,9 @@
 <template>
-  <div class="grid grid-cols-3 gap-8 p-4" :key="colorKey">
+  <div class="grid grid-cols-3 gap-8 p-6" :key="colorKey">
     <course
       v-for="(course, index) in courses"
       :key="index"
-      :style="{ background: `url(${images[index]})` }"
-      class="rounded-xl"
+      :style="{ background: `url(${images[index]}) no-repeat`, backgroundSize: 'cover' }"
     >
       <router-link
         to="/Contents"
@@ -12,7 +11,7 @@
           background: currentColor,
           animationDelay: `${index * 0.25}s`,
         }"
-        class="animate-fade-in pr-16 pl-16 p-1 justify-center rounded-xl opacity-20 text-white"
+        class="animate-fade-in p-1 rounded-xl opacity-20 text-white"
       >
         {{ course }}
       </router-link>
@@ -32,10 +31,8 @@ export default {
   data() {
     return {
       courses: ['Food science', 'Geography', 'Math', 'Biology', 'Sport'],
-      grade: ['grade five', 'grade two', 'grade three', 'grade seven', 'grade five'],
       colors: ['purple', 'black', 'green'],
       colorIndex: 0,
-      course,
       images: [watermelon, geography, math, biology, soccer],
     }
   },
@@ -62,7 +59,7 @@ export default {
     },
   },
   mounted() {
-    setInterval(this.changeColor, 4000)
+    setInterval(this.changeColor, 3000)
   },
 }
 </script>
@@ -72,24 +69,13 @@ export default {
   0% {
     opacity: 0;
   }
-  25% {
-    opacity: 0.25;
-  }
-  50%{
-    opacity: 0.5;
-  }
-  75%{
-    opacity: 0.75;
-    background: #000;
-  }
 
   100% {
     opacity: 1;
   }
-
 }
-  .animate-fade-in {
-    animation: fade-in 1s ease-in-out forwards;
-    opacity: 0;
-  }
+.animate-fade-in {
+  animation: fade-in 1s ease-in-out forwards;
+  opacity: 0;
+}
 </style>

@@ -1,10 +1,6 @@
 <template>
   <div class="flex h-screen text-white items-center justify-center">
-    <img
-      src="../assets/reading.avif"
-      alt="reading"
-      class="rounded-xl w-[400px] h-[600px] ml-40"
-    />
+    <img src="../assets/reading.avif" alt="reading" class="rounded-xl w-[400px] h-[600px] ml-40" />
 
     <div class="flex items-center justify-center w-1/2">
       <div class="w-1/2 max-w-md p-6 rounded-lg bg-blue-900">

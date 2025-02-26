@@ -7,9 +7,3 @@ const app = createApp(App)
 app.use(router)
 
 app.mount('#app')
-
-setTimeout(() =>  {
-  console.clear();
-}, 10000);
-
-

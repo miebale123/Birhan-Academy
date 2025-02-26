@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div ref="container" class="relative">
+  <div ref="container" class="relative ">
     <div
       v-for="(ball, index) in balls"
       :key="index"
@@ -9,7 +9,7 @@
         left: ball.x + 'px',
         transform: 'rotate(' + ball.rotation + 'deg)',
       }"
-      class="bg-yellow-400 font-bold  w-10 h-16 absolute flex justify-center items-center text-red-600 text-4xl"
+      class="bg-yellow-400 font-bold  w-10 h-10 absolute flex justify-center items-center text-red-600 text-4xl"
     >
       {{ ball.text }}
     </div>
