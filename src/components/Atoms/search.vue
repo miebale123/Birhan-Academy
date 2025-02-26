@@ -6,7 +6,7 @@
       v-model="searchQuery"
       @input="handleSearch"
       placeholder="Search courses..."
-      class="w-80 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 outline-none"
+      class="w-40 rounded-lg p-1 focus:ring-2 focus:ring-blue-500 outline-none"
     />
     <ul
       v-if="showResults && filteredItems.length"

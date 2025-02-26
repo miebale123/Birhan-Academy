@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="ml-1 mr-1 mt-[20px]">
+  <div class=" mt-[24px] p-2">
     <div class="ml-2.5">
       <div
         class="-ml-[5px] w-[20px] h-[40px] rounded-[50%_50%_35%_35%] bg-gradient-to-t from-[lightblue] via-[yellow] to-white shadow-[0_0_25px_5px_orange] origin-bottom animate-glowNshrink"
@@ -34,20 +34,7 @@
   }
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.2;
-  }
-}
-
 .animate-glowNshrink {
   animation: glowNshrink 15s infinite;
-}
-
-.animate-blink {
-  animation: blink 0.2s infinite;
 }
 </style>

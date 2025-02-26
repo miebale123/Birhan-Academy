@@ -1,21 +1,20 @@
 <template>
-  <div class="grid grid-cols-3 gap-8 p-6" :key="colorKey">
-    <course
-      v-for="(course, index) in courses"
-      :key="index"
-      :style="{ background: `url(${images[index]}) no-repeat`, backgroundSize: 'cover' }"
-    >
-      <router-link
-        to="/Contents"
-        :style="{
-          background: currentColor,
-          animationDelay: `${index * 0.25}s`,
-        }"
-        class="animate-fade-in p-1 rounded-xl opacity-20 text-white"
-      >
-        {{ course }}
-      </router-link>
-    </course>
+  <div class="flex">
+    <div class="grid grid-cols-3 gap-8 p-16" :key="colorKey">
+      <course v-for="(course, index) in courses" :key="index">
+        <router-link
+          to="/Contents"
+          :style="{
+            background: currentColor,
+            animationDelay: `${index * 0.25}s`,
+          }"
+          class="animate-fade-in p-1 text-white"
+        >
+          {{ course }}
+        </router-link>
+          <img :src="images[index]" class="h-80 w-[700px] mt-1" />
+      </course>
+    </div>
   </div>
 </template>
 

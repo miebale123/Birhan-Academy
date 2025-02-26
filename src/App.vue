@@ -13,3 +13,6 @@ export default {
   components: { RouterView, HeaderC, FooterC },
 }
 </script>
+
+
+

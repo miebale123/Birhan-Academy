@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black">
+  <div>
     <Hero />
     <Sections />
   </div>
@@ -10,6 +10,6 @@ import Hero from '@/components/hero.vue'
 import Sections from '@/components/Sections.vue'
 
 export default {
-  components: { Hero, Sections, },
+  components: { Hero, Sections },
 }
 </script>
