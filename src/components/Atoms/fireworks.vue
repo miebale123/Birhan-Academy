@@ -1,12 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="firework-container" ref="container">
+  <div ref="container" class="bg-black">
     <canvas id="canvas"></canvas>
   </div>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 
 export default {
   setup() {
@@ -17,7 +17,7 @@ export default {
 
     function setup() {
       canvas = document.getElementById('canvas')
-      setSize(canvas)
+      setSize() // Initial setup
       ctx = canvas.getContext('2d')
       ctx.fillStyle = '#000000'
       ctx.fillRect(0, 0, width, height)
@@ -29,7 +29,6 @@ export default {
     function loop() {
       ctx.globalAlpha = 0.1
       ctx.fillStyle = '#000000'
-      ctx.fill = 'color'
       ctx.fillRect(0, 0, width, height)
       ctx.globalAlpha = 1
 
@@ -45,7 +44,7 @@ export default {
         if (particles[i].lifetime > 80) particles.splice(i, 1)
       }
 
-      if (Math.random() < 1 / 20) fireworks.push(new Firework(Math.random() * (width - 200) + 100))
+      if (Math.random() < 1 / 10) fireworks.push(new Firework(Math.random() * (width - 200) + 100))
 
       requestAnimationFrame(loop)
     }
@@ -85,7 +84,8 @@ export default {
 
       update() {
         this.y -= 3
-        if (this.y < 350 - Math.sqrt(Math.random() * 500) * 40) {
+        if (this.y < height * 0.4) {
+          // Dynamically adjust explosion height
           this.isBlown = true
           for (let i = 0; i < 60; i++) {
             particles.push(new Particle(this.x, this.y, this.col))
@@ -116,21 +116,39 @@ export default {
       return { x: Math.cos(dir) * spd, y: Math.sin(dir) * spd }
     }
 
-    function setSize(canvas) {
+    function setSize() {
       const dpr = window.devicePixelRatio || 1
-      const heightRatio = 0.5 // Use 70% of the window height (adjust as needed)
-      canvas.width = window.innerWidth * dpr
-      canvas.height = window.innerHeight * heightRatio * dpr
-      canvas.style.width = `${window.innerWidth}px`
-      canvas.style.height = `${window.innerHeight * heightRatio}px`
-      width = window.innerWidth
-      height = window.innerHeight * heightRatio
-      canvas.getContext('2d').scale(dpr, dpr)
+      // const heightRatio = window.innerWidth < 768 ? 0.6 : 0.5 // More height on mobile
+
+      // Make width proportional (e.g., 80% of window width)
+      const canvasWidthRatio = 1 // Adjust this value as needed
+      canvas.width = window.innerWidth * canvasWidthRatio * dpr
+      canvas.height = window.innerHeight * dpr * 0.5 //* heightRatio
+
+      canvas.style.width = `${window.innerWidth * canvasWidthRatio}px`
+      canvas.style.height = `${window.innerHeight * 0.5}px` //same here
+
+      width = window.innerWidth * canvasWidthRatio
+      height = window.innerHeight * 0.5 //same here
+
+      ctx = canvas.getContext('2d')
+      ctx.scale(dpr, dpr)
+    }
+
+    // Resize handler
+    function handleResize() {
+      setSize()
+      console.log(width)
     }
 
     onMounted(() => {
       setup()
       loop()
+      window.addEventListener('resize', handleResize) // Listen to resize events
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', handleResize) // Cleanup on destroy
     })
 
     return {

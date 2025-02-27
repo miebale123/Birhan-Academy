@@ -1,21 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-
 <template>
-  <div
-    class="bg-gradient-to-r from-green-100 to-blue-400 text-gray-600 font-bold text-2xl break-words"
-  >
+  <div class="bg-gradient-to-r from-green-100 to-blue-400 text-gray-600 font-bold text-2xl">
     <svg viewBox="0 0 1440 200" class="fill-black">
       <path d="M0,132C180,0,1360,160,1440,0L140,0L0,0Z"></path>
     </svg>
-    <section class="flex items-center justify-center h-[400px] gap-20">
-      <div class="h-72">
-        <vue3-lottie :animationData="childFriendly"></vue3-lottie>
-        <h2>The contents are appropriate and engaging for children</h2>
-      </div>
-      <div class="h-72">
-        <vue3-lottie :animationData="secure"></vue3-lottie>
-        <p>Our website takes security one step further</p>
-      </div>
+
+    <section
+      class="flex flex-col md:flex-row justify-center items-center md:h-[400px] gap-10 md:gap-20 p-4"
+    >
+      <vue3-lottie :animationData="content" />
+      <vue3-lottie :animationData="secure" />
     </section>
 
     <svg viewBox="0 0 1440 200" class="fill-gray-600">
@@ -24,34 +18,23 @@
       ></path>
     </svg>
   </div>
+
   <section
-    class="bg-gray-600 flex items-center justify-center h-[400px] gap-20 text-red-200 font-bold text-3xl break-words whitespace-normal"
+    class="bg-gray-600 flex flex-col md:flex-row items-center justify-center md:h-[400px] gap-10 md:gap-20 text-red-200 font-bold text-xl md:text-3xl p-4"
   >
-    <div class="flex items-center justify-center">
-      <p class="mr-20">ወለዲ ብናይ ደቆም ጉብዝና ይሕጎሱ።</p>
-      <img :src="family" alt="" class="rounded-3xl h-[300px]" />
+    <div class="flex flex-col md:flex-row items-center text-center md:text-left">
+      <p class="md:mr-10 mb-4 md:mb-0">ወለዲ ብናይ ደቆም ጉብዝና ይሕጎሱ።</p>
+      <img
+        src="../assets/family.bmp"
+        alt="A family representation"
+        class="rounded-3xl h-[200px] md:h-[300px]"
+      />
     </div>
   </section>
 </template>
 
-<script>
-import family from '@/assets/family.bmp'
+<script setup>
 import secure from '@/assets/secure.json'
-import childFriendly from '@/assets/child-friendly.json'
-
+import content from '@/assets/content.json'
 import { Vue3Lottie } from 'vue3-lottie'
-
-export default {
-  components: {
-    Vue3Lottie,
-  },
-
-  data() {
-    return {
-      childFriendly,
-      secure,
-      family,
-    }
-  },
-}
 </script>

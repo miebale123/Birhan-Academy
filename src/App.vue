@@ -1,18 +1,11 @@
-<template>
-  <HeaderC />
-  <router-view></router-view>
-  <FooterC />
-</template>
-
-<script>
+<script setup>
+import AppHeader from './components/AppHeader.vue'
 import { RouterView } from 'vue-router'
-import HeaderC from './components/HeaderC.vue'
-import FooterC from './components/footerC.vue'
-
-export default {
-  components: { RouterView, HeaderC, FooterC },
-}
+// import footerC from './components/footerC.vue'
 </script>
 
-
-
+<template>
+  <AppHeader />
+  <router-view></router-view>
+  <!-- <footerC /> -->
+</template>

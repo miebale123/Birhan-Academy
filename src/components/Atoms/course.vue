@@ -1,8 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="text-sm pr-2 pt-1 hover:-m-4">
+  <div class="text-sm p-1 hover:-m-4">
     <slot></slot>
-    <div class="bg-blue-500 text-white p-1 rounded shake">
+    <div class="bg-blue-500 text-white p-1 rounded-b shake">
       <router-link to="/Contents">learn now</router-link>
     </div>
   </div>

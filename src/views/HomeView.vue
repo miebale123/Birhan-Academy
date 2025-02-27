@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <Hero />
-    <Sections />
-  </div>
+  <Hero />
+  <Sections />
 </template>
 
-<script>
-import Hero from '@/components/hero.vue'
-import Sections from '@/components/Sections.vue'
+<script setup>
+import Hero from '@/components/Hero.vue'
+import { defineAsyncComponent, hydrateOnVisible } from 'vue'
 
-export default {
-  components: { Hero, Sections },
-}
+const Sections = defineAsyncComponent({
+  loader: () => import('@/components/Sections.vue'),
+  hydrate: hydrateOnVisible(),
+})
 </script>
