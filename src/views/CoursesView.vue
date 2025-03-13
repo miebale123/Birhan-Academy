@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-3 gap-8 p-32" :key="colorKey">
+  <div class="grid grid-cols-3 gap-8 p-32 bg-indigo-950" :key="colorKey">
     <course v-for="(course, index) in courses" :key="index">
       <router-link
         to="/Contents"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import course from '@/components/Atoms/course.vue'
+import course from '@/components/Molecules/courseMolecule.vue'
 import biology from '@/assets/biology.avif'
 import soccer from '@/assets/soccer.jpg'
 import geography from '@/assets/geography.jpg'

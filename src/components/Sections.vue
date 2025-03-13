@@ -12,7 +12,7 @@
       <vue3-lottie :animationData="secure" />
     </section>
 
-    <svg viewBox="0 0 1440 200" class="fill-gray-600">
+    <svg viewBox="0 0 1440 200" class="fill-gray-500">
       <path
         d="M0,160C80,120,160,80,320,80C480,80,560,160,720,160C880,160,960,80,1120,50C1280,16,1360,80,1440,0L1440,320L0,320Z"
       ></path>
@@ -20,7 +20,7 @@
   </div>
 
   <section
-    class="bg-gray-600 flex flex-col md:flex-row items-center justify-center md:h-[400px] gap-10 md:gap-20 text-red-200 font-bold text-xl md:text-3xl p-4"
+    class="bg-gray-500 flex flex-col md:flex-row items-center justify-center md:h-[400px] gap-10 md:gap-20 text-red-200 font-bold text-xl md:text-3xl p-4"
   >
     <div class="flex flex-col md:flex-row items-center text-center md:text-left">
       <p class="md:mr-10 mb-4 md:mb-0">ወለዲ ብናይ ደቆም ጉብዝና ይሕጎሱ።</p>

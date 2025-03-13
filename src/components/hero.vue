@@ -1,42 +1,20 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<template>
-  <Fireworks />
-  <div class="bg-black h-[400px]">
-    <div class="right-[10%] animate-slide-in-right text-4xl sm:text-6xl text-green-200">
-      congratulations!
-    </div>
-    <div class="left-[10%] h-40 animate-slide-in-left">
-      <Vue3Lottie :animationData="programmer" />
-    </div>
-  </div>
-</template>
-
 <script setup>
-import Fireworks from './Atoms/fireworks.vue'
+import fireworkAtom from './Molecules/fireworkAtom.vue'
 import programmer from '../assets/programmer.json'
 import { Vue3Lottie } from 'vue3-lottie'
+// import flameAtom from './Atoms/flameAtom.vue'
 </script>
 
-<style>
-@keyframes slideIn {
-  0% {
-    transform: translateX(var(--start));
-  }
-  60% {
-    transform: translateX(var(--mid));
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-.animate-slide-in-left {
-  --start: -100%;
-  --mid: 40%;
-  animation: slideIn 2s ease-out;
-}
-.animate-slide-in-right {
-  --start: 100%;
-  --mid: -40%;
-  animation: slideIn 2s ease-out;
-}
-</style>
+<template>
+  <main>
+    <fireworkAtom class="mt-22" />
+    <div class="bg-black flex items-center justify-center">
+      <div class="bg-gradient-to-r via-yellow-100">
+        <div class="text-6xl bg-gradient-to-r">congratulations</div>
+      </div>
+      <br />
+      <Vue3Lottie :animationData="programmer" :height="200" :width="200" />
+    </div>
+  </main>
+</template>
