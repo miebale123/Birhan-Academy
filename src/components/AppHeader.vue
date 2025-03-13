@@ -11,11 +11,6 @@ import { RouterLink } from 'vue-router'
     <nav class="flex gap-6 sm:gap-8">
       <router-link to="/" class="text-blue-500 hover:underline">Home</router-link>
       <router-link to="/Courses" class="text-purple-500 hover:underline">Courses</router-link>
-      <router-link to="/SignUp" class="text-white animate-bounce font-semibold">
-        Sign Up
-      </router-link>
     </nav>
   </header>
-
-
 </template>
