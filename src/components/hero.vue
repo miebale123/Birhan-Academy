@@ -10,8 +10,8 @@ import { Vue3Lottie } from 'vue3-lottie'
   <main>
     <fireworkAtom class="mt-22" />
     <div class="bg-black flex items-center justify-center">
-      <div class="bg-gradient-to-r via-yellow-100">
-        <div class="text-6xl bg-gradient-to-r">congratulations</div>
+      <div class="text-6xl bg-gradient-to-r via-yellow-100">
+            congratulations!
       </div>
       <br />
       <Vue3Lottie :animationData="programmer" :height="200" :width="200" />
