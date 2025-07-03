@@ -2,9 +2,8 @@
   <div class="grid grid-cols-3 gap-8 p-32 bg-indigo-950" :key="colorKey">
     <course v-for="(course, index) in courses" :key="index">
       <button
-        to="/Contents"
         :style="{ background: currentColor, animationDelay: `${index * 0.25}s` }"
-        class="animate-fade-in p-1 text-white"
+        class="animate-fade-in px-1 text-white"
       >
         {{ course }}
       </button>
@@ -14,7 +13,7 @@
 </template>
 
 <script>
-import water from '@/assets/water.jpg' // Placeholder image, replace with actual images
+import water from '@/assets/water.jpg'
 
 export default {
   data() {
@@ -22,7 +21,7 @@ export default {
       courses: ['water', 'water', 'water', 'water', 'water'],
       colors: ['purple', 'black', 'green'],
       colorIndex: 0,
-      images: [water, water, water, water, water], // Placeholder images
+      images: [water, water, water, water, water],
     }
   },
 
