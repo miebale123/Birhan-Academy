@@ -1,36 +1,28 @@
 <template>
   <div class="grid grid-cols-3 gap-8 p-32 bg-indigo-950" :key="colorKey">
     <course v-for="(course, index) in courses" :key="index">
-      <router-link
+      <button
         to="/Contents"
-        :style="{
-          background: currentColor,
-          animationDelay: `${index * 0.25}s`,
-        }"
+        :style="{ background: currentColor, animationDelay: `${index * 0.25}s` }"
         class="animate-fade-in p-1 text-white"
       >
         {{ course }}
-      </router-link>
-      <img :src="images[index]" class="h-80 w-[700px] mt-1" />
+      </button>
+      <img :src="images[index]" class="h-80 w-[700px]" />
     </course>
   </div>
 </template>
 
 <script>
-import course from '@/components/Molecules/courseMolecule.vue'
-import biology from '@/assets/biology.avif'
-import soccer from '@/assets/soccer.jpg'
-import geography from '@/assets/geography.jpg'
-import watermelon from '@/assets/watermelon.jpg'
-import math from '@/assets/math.jpg'
+import water from '@/assets/water.jpg' // Placeholder image, replace with actual images
+
 export default {
-  components: { course },
   data() {
     return {
-      courses: ['Food science', 'Geography', 'Math', 'Biology', 'Sport'],
+      courses: ['water', 'water', 'water', 'water', 'water'],
       colors: ['purple', 'black', 'green'],
       colorIndex: 0,
-      images: [watermelon, geography, math, biology, soccer],
+      images: [water, water, water, water, water], // Placeholder images
     }
   },
 
