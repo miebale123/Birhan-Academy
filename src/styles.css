@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+/* Base styles for the body and root font */
+
+/* *,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  word-break: break-all;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+} */
+
+/*
+body {
+  background: black;
+} */
+
+/* img {
+  border: 0;
+}
+
+ul {
+  list-style: none;
+} */
+
+/* .center {
+  width: 1170px;
+  margin: 20px auto 0;
+} */
+
+/* .holder {
+  margin: 12rem auto 0;
+
+  width: 150px;
+  height: 400px;
+   position: relative;
+} */
