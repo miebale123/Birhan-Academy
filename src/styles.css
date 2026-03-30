@@ -1,39 +1,44 @@
 @import "tailwindcss";
 
-/* Base styles for the body and root font */
-
-/* *,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  word-break: break-all;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-} */
-
-/*
-body {
-  background: black;
-} */
-
-/* img {
-  border: 0;
+:root {
+  color: #f8fafc;
+  background: #05060a;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
 }
 
-ul {
-  list-style: none;
-} */
+html {
+  scroll-behavior: smooth;
+}
 
-/* .center {
-  width: 1170px;
-  margin: 20px auto 0;
-} */
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #05060a;
+  color: #f8fafc;
+}
 
-/* .holder {
-  margin: 12rem auto 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  width: 150px;
-  height: 400px;
-   position: relative;
-} */
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+#app {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
