@@ -1,92 +1,99 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div ref="container" class="relative ">
-    <div
-      v-for="(ball, index) in balls"
-      :key="index"
-      :style="{
-        top: ball.y + 'px',
-        left: ball.x + 'px',
-        transform: 'rotate(' + ball.rotation + 'deg)',
-      }"
-      class="bg-yellow-400 font-bold  w-10 h-10 absolute flex justify-center items-center text-red-600 text-4xl"
-    >
-      {{ ball.text }}
+  <div class="logo-wrap" aria-label="Birhan Academy">
+    <div v-for="(letters, wordIndex) in words" :key="wordIndex" class="word-row">
+      <span
+        v-for="(letter, letterIndex) in letters"
+        :key="`${wordIndex}-${letterIndex}`"
+        class="letter-ball"
+        :style="{
+          '--delay': `${(wordIndex * 7 + letterIndex) * 0.08}s`,
+          '--float-delay': `${0.9 + (wordIndex * 7 + letterIndex) * 0.08}s`,
+        }"
+      >
+        {{ letter }}
+      </span>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      // ballSize: 10,
-      gravity: 0.5,
-      bounceFactor: 0.5,
-      rollSpeed: 8,
-      containerWidth: 0,
-      groundLevel: window.innerHeight - 400, //height
-      balls: [],
-    }
-  },
-  mounted() {
-    this.containerWidth = this.$refs.container.offsetWidth
-    this.createBalls()
-  },
-  methods: {
-    createBalls() {
-      const numBalls = 9
-      const spacing = (this.containerWidth - numBalls * 10) / (numBalls + 200)
-      // Initialize balls
-      for (let i = 0; i < numBalls; i++) {
-        const finalX = spacing * (i + 1) + 30 * i // Evenly distribute
-
-        this.balls.push({
-          text: 'ሚዳካኣ ንሃርብ'.charAt(i),
-          y: Math.random() * Math.PI * 1, // Start above screen
-          vy: 0, //  velocity of y = vy
-          x: this.containerWidth, // Start off-screen right
-          finalX: finalX,
-          rotation: 0, // Initial rotation
-        })
-      }
-
-      this.startAnimation()
-    },
-    animateBall(ball, index) {
-      // Gravity effect
-      ball.vy += this.gravity
-      ball.y += ball.vy
-
-      // Bouncing effect
-      if (ball.y + 10 >= this.groundLevel) {
-        ball.y = this.groundLevel - 10
-        ball.vy *= -this.bounceFactor // Reverse velocity for bounce
-      }
-
-      // Horizontal movement
-      if (ball.x > 1000 - ball.finalX) {
-        ball.x -= this.rollSpeed
-        ball.rotation -= 10 // Rotation effect
-      } else {
-        // Smoothly bring the rotation back to 0 when it stops
-        ball.rotation = ball.rotation * 0.8 // This gradually reduces rotation over time
-      }
-
-      //
-
-      // Continue animating
-      requestAnimationFrame(() => this.animateBall(ball, index))
-    },
-    startAnimation() {
-      this.balls.forEach((ball, index) => {
-        setTimeout(() => this.animateBall(ball, index), index * 200)
-      })
-    },
-  },
-}
+<script setup>
+const words = ['ብርሃን', 'አካዳሚ'].map((word) => Array.from(word))
 </script>
 
-<!--  if (i === 7) {
-  continue
-} -->
+<style scoped>
+.logo-wrap {
+  display: flex;
+  width: min(100%, 28rem);
+  flex-direction: column;
+  gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.word-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.35rem, 1.6vw, 0.75rem);
+}
+
+.letter-ball {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2.3rem, 9vw, 3.4rem);
+  height: clamp(2.3rem, 9vw, 3.4rem);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #facc15 0%, #f59e0b 100%);
+  color: #7f1d1d;
+  font-size: clamp(1.15rem, 4.4vw, 1.75rem);
+  font-weight: 900;
+  box-shadow:
+    0 18px 35px rgba(120, 53, 15, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  transform: translate3d(clamp(38px, 10vw, 90px), -32px, 0) scale(0.72) rotate(12deg);
+  animation:
+    settle 0.9s cubic-bezier(0.2, 0.8, 0.22, 1) forwards,
+    bob 4.8s ease-in-out infinite;
+  animation-delay: var(--delay), var(--float-delay);
+}
+
+@keyframes settle {
+  0% {
+    opacity: 0;
+    transform: translate3d(clamp(38px, 10vw, 90px), -32px, 0) scale(0.72) rotate(12deg);
+  }
+  65% {
+    opacity: 1;
+    transform: translate3d(0, 12px, 0) scale(1.04) rotate(-6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-wrap {
+    width: min(100%, 18rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-ball {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+</style>
