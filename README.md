@@ -1,35 +1,31 @@
-# front
+# Birhan Academy Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Birhan Academy is a Vue 3 single-page frontend built with Vite. The app combines a public landing page, a course browsing experience, a backend-driven course content screen, a signup form, and a course completion celebration view.
 
-## Recommended IDE Setup
+This repository currently contains the frontend only. It expects a separate backend service to be available at `http://localhost:5000` for course content and user registration.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Quick Start
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+The main Vite commands available in this repo are:
 
-```sh
-npm run build
-```
+- `npm run dev` to start the development server
+- `npm run build` to create a production build
+- `npm run preview` to preview the production build locally
+- `npm run lint` to run ESLint with auto-fixes
+- `npm run format` to run Prettier on `src/`
 
-### Lint with [ESLint](https://eslint.org/)
+## Documentation
 
-```sh
-npm run lint
-```
+Project documentation lives in the [`docs/`](./docs) directory:
+
+- [`docs/README.md`](./docs/README.md) for the docs index and naming conventions
+- [`docs/product/overview.md`](./docs/product/overview.md) for the product summary and scope
+- [`docs/setup/local-development.md`](./docs/setup/local-development.md) for local setup and workflow
+- [`docs/architecture/application-structure.md`](./docs/architecture/application-structure.md) for the frontend structure
+- [`docs/architecture/routing-and-navigation.md`](./docs/architecture/routing-and-navigation.md) for the route map and navigation behavior
+- [`docs/integrations/backend-api.md`](./docs/integrations/backend-api.md) for backend expectations and payload shapes
