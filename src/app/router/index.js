@@ -50,6 +50,30 @@ const router = createRouter({
       component: () => import('@/features/courses/views/CourseCompletionView.vue'),
     },
     {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/features/site/views/SitePageView.vue'),
+      props: { pageKey: 'about' },
+    },
+    {
+      path: '/support',
+      name: 'support',
+      component: () => import('@/features/site/views/SitePageView.vue'),
+      props: { pageKey: 'support' },
+    },
+    {
+      path: '/privacy-policy',
+      name: 'privacyPolicy',
+      component: () => import('@/features/site/views/SitePageView.vue'),
+      props: { pageKey: 'privacy' },
+    },
+    {
+      path: '/terms-of-service',
+      name: 'termsOfService',
+      component: () => import('@/features/site/views/SitePageView.vue'),
+      props: { pageKey: 'terms' },
+    },
+    {
       path: '/sign-up',
       alias: '/Sign Up',
       name: 'signUp',
