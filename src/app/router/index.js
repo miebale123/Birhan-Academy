@@ -50,6 +50,14 @@ const router = createRouter({
       component: () => import('@/features/courses/views/CourseCompletionView.vue'),
     },
     {
+      path: '/my-learning',
+      name: 'learningDashboard',
+      meta: {
+        requiresAuth: true,
+      },
+      component: () => import('@/features/dashboard/views/LearningDashboardView.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('@/features/site/views/SitePageView.vue'),
@@ -113,7 +121,7 @@ router.beforeEach((to) => {
   }
 
   if (to.meta.guestOnly && authStore.isAuthenticated) {
-    return getSafeRedirectPath(to.query.redirect) || { name: 'courseCatalog' }
+    return getSafeRedirectPath(to.query.redirect) || { name: 'learningDashboard' }
   }
 
   return true

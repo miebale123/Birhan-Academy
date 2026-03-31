@@ -171,7 +171,7 @@ export default {
       const redirect = this.$route.query.redirect
       return typeof redirect === 'string' && redirect.startsWith('/')
         ? redirect
-        : { name: 'courseCatalog' }
+        : { name: 'learningDashboard' }
     },
     async handleSignIn() {
       this.clearFeedback()

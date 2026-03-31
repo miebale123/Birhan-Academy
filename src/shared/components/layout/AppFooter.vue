@@ -10,8 +10,8 @@ const { currentUser } = storeToRefs(authStore)
 const footerGroups = computed(() => {
   const accountLinks = currentUser.value
     ? [
+        { label: 'My learning', to: { name: 'learningDashboard' } },
         { label: 'Browse courses', to: { name: 'courseCatalog' } },
-        { label: 'Continue learning', to: { name: 'courseCatalog' } },
       ]
     : [
         { label: 'Sign in', to: { name: 'signIn' } },

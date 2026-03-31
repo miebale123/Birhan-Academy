@@ -1,9 +1,56 @@
 <script setup>
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { RouterLink } from 'vue-router'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
 import AcademyLogo from '@/shared/components/branding/AcademyLogo.vue'
 import { homeCopy } from '@/features/home/constants/homeCopy'
 
+const authStore = useAuthStore()
+const { currentUser } = storeToRefs(authStore)
 const copy = homeCopy.hero
+
+const kicker = computed(() => {
+  return currentUser.value ? `Welcome back, ${authStore.firstName || 'Learner'}` : copy.kicker
+})
+
+const description = computed(() => {
+  return currentUser.value
+    ? 'Pick up where you left off from your learning dashboard, then return to the course catalog whenever you want something new.'
+    : copy.description
+})
+
+const primaryAction = computed(() => {
+  if (currentUser.value) {
+    return {
+      label: 'Go to my learning',
+      to: { name: 'learningDashboard' },
+      className:
+        'inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_20px_50px_rgba(245,158,11,0.28)] transition hover:bg-amber-200',
+    }
+  }
+
+  return {
+    label: copy.actions.courses,
+    to: { name: 'courseCatalog' },
+    className:
+      'inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_20px_50px_rgba(245,158,11,0.28)] transition hover:bg-amber-200',
+  }
+})
+
+const secondaryAction = computed(() => {
+  if (currentUser.value) {
+    return {
+      label: 'Browse courses',
+      to: { name: 'courseCatalog' },
+    }
+  }
+
+  return {
+    label: copy.actions.signUp,
+    to: { name: 'signUp' },
+  }
+})
 </script>
 
 <template>
@@ -18,25 +65,25 @@ const copy = homeCopy.hero
     >
       <div class="max-w-2xl text-center lg:text-left">
         <p class="text-sm font-semibold uppercase tracking-[0.45em] text-sky-200/85 sm:text-base">
-          {{ copy.kicker }}
+          {{ kicker }}
         </p>
 
         <p class="mt-5 text-sm leading-7 text-slate-200/84 sm:text-base lg:max-w-xl lg:text-lg">
-          {{ copy.description }}
+          {{ description }}
         </p>
 
         <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
           <RouterLink
-            :to="{ name: 'courseCatalog' }"
-            class="inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_20px_50px_rgba(245,158,11,0.28)] transition hover:bg-amber-200"
+            :to="primaryAction.to"
+            :class="primaryAction.className"
           >
-            {{ copy.actions.courses }}
+            {{ primaryAction.label }}
           </RouterLink>
           <RouterLink
-            :to="{ name: 'signUp' }"
+            :to="secondaryAction.to"
             class="inline-flex rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
           >
-            {{ copy.actions.signUp }}
+            {{ secondaryAction.label }}
           </RouterLink>
         </div>
       </div>

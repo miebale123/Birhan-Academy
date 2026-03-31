@@ -13,10 +13,18 @@ const userMenuRef = ref(null)
 const { currentUser } = storeToRefs(authStore)
 let desktopViewportQuery
 
-const navigationItems = [
-  { label: 'Home', name: 'home' },
-  { label: 'Courses', name: 'courseCatalog' },
-]
+const navigationItems = computed(() => {
+  const items = [
+    { label: 'Home', name: 'home' },
+    { label: 'Courses', name: 'courseCatalog' },
+  ]
+
+  if (currentUser.value) {
+    items.splice(1, 0, { label: 'My Learning', name: 'learningDashboard' })
+  }
+
+  return items
+})
 
 const mobileMenuLabel = computed(() => {
   return isMobileMenuOpen.value ? 'Close navigation menu' : 'Open navigation menu'
