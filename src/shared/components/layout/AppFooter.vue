@@ -7,40 +7,52 @@ import { useAuthStore } from '@/features/auth/stores/auth.store'
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
 
-const exploreLinks = [
-  { label: 'Home', to: { name: 'home' } },
-  { label: 'Courses', to: { name: 'courseCatalog' } },
-]
-
-const platformItems = [
-  'Structured lesson paths',
-  'Simple enrollment flow',
-  'Responsive layouts across devices',
-]
-
-const accountHeading = computed(() => {
-  return currentUser.value ? 'Your account' : 'Get started'
-})
-
-const accountMessage = computed(() => {
-  return currentUser.value
-    ? `${currentUser.value.name} is signed in and ready to continue learning.`
-    : 'Create an account or sign in to manage enrollments and course access.'
-})
-
-const accountLinks = computed(() => {
-  if (currentUser.value) {
-    return [
-      { label: 'Browse courses', to: { name: 'courseCatalog' } },
-      { label: 'Continue learning', to: { name: 'courseCatalog' } },
-    ]
-  }
+const footerGroups = computed(() => {
+  const accountLinks = currentUser.value
+    ? [
+        { label: 'Browse courses', to: { name: 'courseCatalog' } },
+        { label: 'Continue learning', to: { name: 'courseCatalog' } },
+      ]
+    : [
+        { label: 'Sign in', to: { name: 'signIn' } },
+        { label: 'Create account', to: { name: 'signUp' } },
+      ]
 
   return [
-    { label: 'Sign in', to: { name: 'signIn' } },
-    { label: 'Create account', to: { name: 'signUp' } },
+    {
+      title: 'Company',
+      links: [
+        { label: 'About us', to: { name: 'about' } },
+        { label: 'Courses', to: { name: 'courseCatalog' } },
+      ],
+    },
+    {
+      title: 'Support',
+      links: [
+        { label: 'Support', to: { name: 'support' } },
+        { label: 'Home', to: { name: 'home' } },
+      ],
+    },
+    {
+      title: 'Legal',
+      links: [
+        { label: 'Privacy Policy', to: { name: 'privacyPolicy' } },
+        { label: 'Terms of Service', to: { name: 'termsOfService' } },
+      ],
+    },
+    {
+      title: 'Account',
+      links: accountLinks,
+    },
   ]
 })
+
+const bottomLinks = [
+  { label: 'About', to: { name: 'about' } },
+  { label: 'Support', to: { name: 'support' } },
+  { label: 'Privacy Policy', to: { name: 'privacyPolicy' } },
+  { label: 'Terms of Service', to: { name: 'termsOfService' } },
+]
 
 const currentYear = new Date().getFullYear()
 </script>
@@ -48,7 +60,7 @@ const currentYear = new Date().getFullYear()
 <template>
   <footer class="app-footer border-t border-white/10 text-white">
     <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-      <div class="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.4fr_0.75fr_0.95fr_1fr]">
+      <div class="grid gap-10 border-b border-white/10 pb-8 lg:grid-cols-[1.2fr_1.8fr] lg:gap-14">
         <div class="space-y-4">
           <RouterLink
             :to="{ name: 'home' }"
@@ -63,67 +75,45 @@ const currentYear = new Date().getFullYear()
               <p class="text-xs font-black uppercase tracking-[0.28em] text-amber-300/85">
                 Birhan Academy
               </p>
-              <p class="mt-1 text-sm text-slate-300">Digital learning with a clear path forward.</p>
+              <p class="mt-1 text-sm text-slate-300/80">
+                Clear learning journeys for students and families.
+              </p>
             </div>
           </RouterLink>
 
-          <p class="max-w-md text-sm leading-7 text-slate-300/85">
-            Explore courses, sign in securely, and move through each learning step with a
-            cleaner experience on phones, tablets, and larger screens.
+          <p class="max-w-md text-sm leading-7 text-slate-300/84">
+            Explore courses, manage account access, and find support through a cleaner digital
+            learning experience built for everyday use.
           </p>
         </div>
 
-        <nav aria-label="Footer navigation">
-          <p class="footer-heading">Explore</p>
-          <ul class="mt-4 space-y-3">
-            <li v-for="link in exploreLinks" :key="link.label">
-              <RouterLink :to="link.to" class="footer-link">
-                {{ link.label }}
-              </RouterLink>
-            </li>
-          </ul>
-        </nav>
-
-        <div>
-          <p class="footer-heading">{{ accountHeading }}</p>
-          <p class="mt-4 max-w-xs text-sm leading-6 text-slate-400">
-            {{ accountMessage }}
-          </p>
-          <ul class="mt-4 space-y-3">
-            <li v-for="link in accountLinks" :key="link.label">
-              <RouterLink :to="link.to" class="footer-link">
-                {{ link.label }}
-              </RouterLink>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <p class="footer-heading">Platform</p>
-          <ul class="mt-4 space-y-3">
-            <li
-              v-for="item in platformItems"
-              :key="item"
-              class="flex items-start gap-3 text-sm leading-6 text-slate-300"
-            >
-              <span class="mt-2 h-2 w-2 rounded-full bg-amber-300"></span>
-              <span>{{ item }}</span>
-            </li>
-          </ul>
+        <div class="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
+          <nav v-for="group in footerGroups" :key="group.title" :aria-label="group.title">
+            <p class="footer-heading">{{ group.title }}</p>
+            <ul class="mt-4 space-y-3">
+              <li v-for="link in group.links" :key="link.label">
+                <RouterLink :to="link.to" class="footer-link">
+                  {{ link.label }}
+                </RouterLink>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
 
-      <div
-        class="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 text-sm text-slate-400 md:flex-row md:items-center md:justify-between"
-      >
+      <div class="flex flex-col gap-4 pt-5 text-sm text-slate-400 lg:flex-row lg:items-center lg:justify-between">
         <p>&copy; {{ currentYear }} Birhan Academy. All rights reserved.</p>
-        <p class="text-slate-300/85">
-          {{
-            currentUser
-              ? `Signed in as ${currentUser.name}.`
-              : 'Built for students, families, and educators.'
-          }}
-        </p>
+
+        <div class="flex flex-wrap gap-x-4 gap-y-2">
+          <RouterLink
+            v-for="link in bottomLinks"
+            :key="link.label"
+            :to="link.to"
+            class="footer-meta-link"
+          >
+            {{ link.label }}
+          </RouterLink>
+        </div>
       </div>
     </div>
   </footer>
@@ -132,8 +122,8 @@ const currentYear = new Date().getFullYear()
 <style scoped>
 .app-footer {
   background:
-    radial-gradient(circle at top left, rgba(245, 158, 11, 0.12), transparent 26%),
-    radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.14), transparent 24%),
+    radial-gradient(circle at top left, rgba(245, 158, 11, 0.1), transparent 24%),
+    radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.12), transparent 22%),
     linear-gradient(180deg, rgba(2, 6, 23, 0.98) 0%, rgba(3, 7, 18, 1) 100%);
 }
 
@@ -142,20 +132,26 @@ const currentYear = new Date().getFullYear()
   font-weight: 900;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(191, 219, 254, 0.82);
+  color: rgba(191, 219, 254, 0.8);
+}
+
+.footer-link,
+.footer-meta-link {
+  color: rgba(226, 232, 240, 0.84);
+  transition: color 160ms ease;
 }
 
 .footer-link {
-  color: rgba(226, 232, 240, 0.9);
   font-size: 0.95rem;
   font-weight: 600;
-  transition:
-    color 160ms ease,
-    transform 160ms ease;
 }
 
-.footer-link:hover {
+.footer-link:hover,
+.footer-meta-link:hover {
   color: white;
-  transform: translateX(2px);
+}
+
+.footer-meta-link {
+  font-size: 0.88rem;
 }
 </style>
