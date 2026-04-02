@@ -1,8 +1,11 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { computed } from 'vue'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
 import { useLearningDashboardView } from '@/features/dashboard/composables/useLearningDashboardView'
 import UiButton from '@/shared/components/ui/UiButton.vue'
 
+const authStore = useAuthStore()
 const {
   activeCourses,
   completedCourses,
@@ -15,6 +18,10 @@ const {
   recommendedCourses,
   summaryCards,
 } = useLearningDashboardView()
+
+const welcomeHeading = computed(() =>
+  authStore.isFirstSession ? `Welcome ${firstName.value}!` : `Welcome back, ${firstName.value}.`,
+)
 </script>
 
 <template>
@@ -27,7 +34,7 @@ const {
           My learning
         </p>
         <h1 class="mt-4 text-3xl font-black leading-tight text-white sm:text-5xl">
-          Welcome back, {{ firstName }}.
+          {{ welcomeHeading }}
         </h1>
         <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-200/84 sm:text-lg sm:leading-8">
           Track active courses, finish any pending payment, and jump back into class from one

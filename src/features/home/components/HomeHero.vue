@@ -11,7 +11,13 @@ const { currentUser } = storeToRefs(authStore)
 const copy = homeCopy.hero
 
 const kicker = computed(() => {
-  return currentUser.value ? `Welcome back, ${authStore.firstName || 'Learner'}` : copy.kicker
+  if (!currentUser.value) {
+    return copy.kicker
+  }
+
+  return authStore.isFirstSession
+    ? `Welcome ${authStore.firstName || 'Learner'}!`
+    : `Welcome back, ${authStore.firstName || 'Learner'}`
 })
 
 const description = computed(() => {
