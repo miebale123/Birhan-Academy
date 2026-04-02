@@ -11,5 +11,5 @@ export function getCourseRoute(course) {
     return { name: 'coursePayment', params: { courseId: course.id } }
   }
 
-  return { name: 'courseDetails', params: { courseId: course.id } }
+  return { name: 'coursePayment', params: { courseId: course.id } }
 }
