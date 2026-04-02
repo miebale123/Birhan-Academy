@@ -13,6 +13,7 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {
     isAuthenticated: (state) => Boolean(state.currentUser),
+    isFirstSession: (state) => Boolean(state.currentUser?.isFirstSession),
     firstName: (state) => getFirstName(state.currentUser?.name),
     userInitial() {
       return this.firstName ? this.firstName.charAt(0).toUpperCase() : ''

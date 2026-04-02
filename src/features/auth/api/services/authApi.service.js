@@ -56,6 +56,19 @@ function sanitizeUser(user) {
   return safeUser
 }
 
+function upsertStoredUser(nextUser) {
+  const users = readUsers()
+  const index = users.findIndex((user) => user.id === nextUser.id)
+
+  if (index >= 0) {
+    users.splice(index, 1, nextUser)
+  } else {
+    users.push(nextUser)
+  }
+
+  writeUsers(users)
+}
+
 function readCurrentUser() {
   if (typeof window === 'undefined') {
     return null
@@ -97,6 +110,7 @@ function createMockUser(userDto) {
     name: userDto.name.trim(),
     email: normalizeEmail(userDto.email),
     password: userDto.password,
+    signInCount: 0,
     userType: userDto.userType ?? 'student',
     createdAt: new Date().toISOString(),
   }
@@ -121,9 +135,15 @@ export const authApiService = {
       }
 
       const nextUser = createMockUser(userDto)
-      writeUsers([...users, nextUser])
-      writeCurrentUser(nextUser)
-      return sanitizeUser(nextUser)
+      upsertStoredUser(nextUser)
+
+      const signedInUser = {
+        ...nextUser,
+        isFirstSession: true,
+      }
+
+      writeCurrentUser(signedInUser)
+      return sanitizeUser(signedInUser)
     })
   },
 
@@ -142,8 +162,20 @@ export const authApiService = {
         throw createAuthError(authFeedbackCopy.service.authInvalid, 'AUTH_INVALID')
       }
 
-      writeCurrentUser(user)
-      return sanitizeUser(user)
+      const nextUser = {
+        ...user,
+        signInCount: (user.signInCount ?? 0) + 1,
+      }
+
+      upsertStoredUser(nextUser)
+
+      const signedInUser = {
+        ...nextUser,
+        isFirstSession: nextUser.signInCount === 1,
+      }
+
+      writeCurrentUser(signedInUser)
+      return sanitizeUser(signedInUser)
     }, 320)
   },
 
