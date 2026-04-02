@@ -2,8 +2,8 @@
 import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import { useAuthStore } from '@/features/auth/stores/auth.store'
-import AppFooter from '@/shared/components/layout/AppFooter.vue'
-import AppHeader from '@/shared/components/layout/AppHeader.vue'
+import AppFooter from '@/app/components/layout/AppFooter.vue'
+import AppHeader from '@/app/components/layout/AppHeader.vue'
 
 const route = useRoute()
 const authStore = useAuthStore()

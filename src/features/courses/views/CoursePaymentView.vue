@@ -1,73 +1,10 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { courseApiService } from '@/features/courses/api/services/courseApi.service'
+import { useCoursePaymentView } from '@/features/courses/composables/useCoursePaymentView'
+import UiButton from '@/shared/components/ui/UiButton.vue'
+import UiInputField from '@/shared/components/ui/UiInputField.vue'
 
-const route = useRoute()
-const router = useRouter()
-
-const course = ref(null)
-const isLoading = ref(true)
-const isSubmitting = ref(false)
-const errorMessage = ref('')
-
-const paymentForm = ref({
-  cardholderName: '',
-  cardNumber: '',
-  expiryDate: '',
-  cvc: '',
-  country: 'Ethiopia',
-})
-
-const courseId = computed(() => route.params.courseId?.toString() ?? '')
-
-function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
-
-async function loadPaymentContext() {
-  isLoading.value = true
-  errorMessage.value = ''
-
-  try {
-    const response = await courseApiService.getPaymentContext(courseId.value)
-
-    if (response.enrollment.hasAccess) {
-      await router.replace({ name: 'courseContent', params: { courseId: courseId.value } })
-      return
-    }
-
-    course.value = response
-  } catch (error) {
-    errorMessage.value = error.message || 'We could not open checkout right now.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-async function handlePayment() {
-  isSubmitting.value = true
-  errorMessage.value = ''
-
-  try {
-    await courseApiService.completePayment(courseId.value, paymentForm.value)
-    await router.push({ name: 'courseContent', params: { courseId: courseId.value } })
-  } catch (error) {
-    errorMessage.value = error.message || 'Payment could not be completed right now.'
-  } finally {
-    isSubmitting.value = false
-  }
-}
-
-onMounted(() => {
-  loadPaymentContext()
-})
-
-watch(courseId, () => {
-  loadPaymentContext()
-})
+const { course, errorMessage, formatCurrency, handlePayment, isLoading, isSubmitting, paymentForm } =
+  useCoursePaymentView()
 </script>
 
 <template>
@@ -166,66 +103,43 @@ watch(courseId, () => {
           </div>
 
           <form class="mt-6 space-y-4" @submit.prevent="handlePayment">
-            <div class="field">
-              <label for="cardholderName">Cardholder name</label>
-              <input
-                id="cardholderName"
-                v-model="paymentForm.cardholderName"
-                type="text"
-                placeholder="Student or parent name"
-                class="input-field"
-              />
-            </div>
+            <UiInputField
+              id="cardholderName"
+              v-model="paymentForm.cardholderName"
+              label="Cardholder name"
+              placeholder="Student or parent name"
+            />
 
-            <div class="field">
-              <label for="cardNumber">Card number</label>
-              <input
-                id="cardNumber"
-                v-model="paymentForm.cardNumber"
-                type="text"
-                inputmode="numeric"
-                placeholder="1234 5678 9012 3456"
-                class="input-field"
-              />
-            </div>
+            <UiInputField
+              id="cardNumber"
+              v-model="paymentForm.cardNumber"
+              inputmode="numeric"
+              label="Card number"
+              placeholder="1234 5678 9012 3456"
+            />
 
             <div class="grid gap-4 sm:grid-cols-2">
-              <div class="field">
-                <label for="expiryDate">Expiry date</label>
-                <input
-                  id="expiryDate"
-                  v-model="paymentForm.expiryDate"
-                  type="text"
-                  placeholder="12/34"
-                  class="input-field"
-                />
-              </div>
+              <UiInputField
+                id="expiryDate"
+                v-model="paymentForm.expiryDate"
+                label="Expiry date"
+                placeholder="12/34"
+              />
 
-              <div class="field">
-                <label for="cvc">CVC</label>
-                <input
-                  id="cvc"
-                  v-model="paymentForm.cvc"
-                  type="text"
-                  inputmode="numeric"
-                  placeholder="123"
-                  class="input-field"
-                />
-              </div>
+              <UiInputField
+                id="cvc"
+                v-model="paymentForm.cvc"
+                inputmode="numeric"
+                label="CVC"
+                placeholder="123"
+              />
             </div>
 
-            <div class="field">
-              <label for="country">Billing country</label>
-              <input id="country" v-model="paymentForm.country" type="text" class="input-field" />
-            </div>
+            <UiInputField id="country" v-model="paymentForm.country" label="Billing country" />
 
-            <button
-              type="submit"
-              :disabled="isSubmitting"
-              class="w-full rounded-full bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-200 disabled:cursor-not-allowed disabled:opacity-70"
-            >
+            <UiButton type="submit" :disabled="isSubmitting" :loading="isSubmitting" block variant="primary">
               {{ isSubmitting ? 'Processing payment...' : 'Pay and go to class' }}
-            </button>
+            </UiButton>
           </form>
 
           <p class="mt-4 text-xs leading-6 text-slate-300/78">
@@ -253,33 +167,4 @@ watch(courseId, () => {
   color: #7dd3fc;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-
-.field label {
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: rgba(226, 232, 240, 0.92);
-}
-
-.input-field {
-  width: 100%;
-  border-radius: 1rem;
-  border: 1px solid rgba(125, 211, 252, 0.18);
-  background: rgba(255, 255, 255, 0.96);
-  padding: 0.82rem 0.95rem;
-  color: #0f172a;
-  outline: none;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.input-field:focus {
-  border-color: rgba(56, 189, 248, 0.85);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
-}
 </style>

@@ -1,93 +1,20 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@/features/auth/stores/auth.store'
-import { courseApiService } from '@/features/courses/api/services/courseApi.service'
+import { useLearningDashboardView } from '@/features/dashboard/composables/useLearningDashboardView'
+import UiButton from '@/shared/components/ui/UiButton.vue'
 
-const authStore = useAuthStore()
-const { currentUser } = storeToRefs(authStore)
-
-const courses = ref([])
-const isLoading = ref(true)
-const errorMessage = ref('')
-
-const firstName = computed(() => authStore.firstName || 'Learner')
-
-const activeCourses = computed(() => {
-  return courses.value.filter((course) => course.enrollment.status === 'enrolled')
-})
-
-const pendingCourses = computed(() => {
-  return courses.value.filter((course) => course.enrollment.status === 'pending_payment')
-})
-
-const completedCourses = computed(() => {
-  return courses.value.filter((course) => course.enrollment.status === 'completed')
-})
-
-const recommendedCourses = computed(() => {
-  return courses.value.filter((course) => course.enrollment.status === 'browsing').slice(0, 3)
-})
-
-const summaryCards = computed(() => {
-  return [
-    {
-      label: 'In class',
-      value: activeCourses.value.length,
-      tone: 'border-sky-300/18 bg-sky-400/10 text-sky-50',
-    },
-    {
-      label: 'Payment required',
-      value: pendingCourses.value.length,
-      tone: 'border-amber-300/18 bg-amber-300/12 text-amber-100',
-    },
-    {
-      label: 'Completed',
-      value: completedCourses.value.length,
-      tone: 'border-emerald-300/18 bg-emerald-300/12 text-emerald-100',
-    },
-  ]
-})
-
-function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
-
-function getCourseRoute(course) {
-  if (course.enrollment.status === 'completed') {
-    return { name: 'courseCompletion', params: { courseId: course.id } }
-  }
-
-  if (course.enrollment.status === 'enrolled') {
-    return { name: 'courseContent', params: { courseId: course.id } }
-  }
-
-  if (course.enrollment.status === 'pending_payment') {
-    return { name: 'coursePayment', params: { courseId: course.id } }
-  }
-
-  return { name: 'courseDetails', params: { courseId: course.id } }
-}
-
-async function loadCourses() {
-  isLoading.value = true
-  errorMessage.value = ''
-
-  try {
-    courses.value = await courseApiService.getCourseCatalog()
-  } catch (error) {
-    errorMessage.value = error.message || 'We could not load your learning dashboard right now.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-onMounted(() => {
-  loadCourses()
-})
+const {
+  activeCourses,
+  completedCourses,
+  errorMessage,
+  firstName,
+  formatCurrency,
+  getCourseRoute,
+  isLoading,
+  pendingCourses,
+  recommendedCourses,
+  summaryCards,
+} = useLearningDashboardView()
 </script>
 
 <template>
@@ -99,28 +26,25 @@ onMounted(() => {
         <p class="text-xs font-black uppercase tracking-[0.28em] text-amber-300/85">
           My learning
         </p>
-        <h1 class="mt-4 text-4xl font-black leading-tight text-white sm:text-5xl">
+        <h1 class="mt-4 text-3xl font-black leading-tight text-white sm:text-5xl">
           Welcome back, {{ firstName }}.
         </h1>
-        <p class="mt-4 max-w-3xl text-base leading-8 text-slate-200/84 sm:text-lg">
+        <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-200/84 sm:text-lg sm:leading-8">
           Track active courses, finish any pending payment, and jump back into class from one
           simple dashboard.
         </p>
 
         <div class="mt-6 flex flex-wrap gap-3">
-          <RouterLink
-            :to="{ name: 'courseCatalog' }"
-            class="inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_20px_50px_rgba(245,158,11,0.28)] transition hover:bg-amber-200"
-          >
+          <UiButton :to="{ name: 'courseCatalog' }" variant="primary">
             Browse courses
-          </RouterLink>
-          <RouterLink
+          </UiButton>
+          <UiButton
             v-if="activeCourses[0]"
             :to="getCourseRoute(activeCourses[0])"
-            class="inline-flex rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            variant="secondary"
           >
             Continue latest course
-          </RouterLink>
+          </UiButton>
         </div>
       </section>
 
@@ -128,7 +52,7 @@ onMounted(() => {
         {{ errorMessage }}
       </div>
 
-      <div v-if="isLoading" class="grid gap-4 sm:grid-cols-3">
+      <div v-if="isLoading" class="grid grid-cols-3 gap-3 sm:gap-4">
         <div v-for="item in 3" :key="item" class="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
           <div class="animate-pulse space-y-3">
             <div class="h-4 w-24 rounded-full bg-white/10"></div>
@@ -137,15 +61,15 @@ onMounted(() => {
         </div>
       </div>
 
-      <div v-else class="grid gap-4 sm:grid-cols-3">
+      <div v-else class="grid grid-cols-3 gap-3 sm:gap-4">
         <article
           v-for="card in summaryCards"
           :key="card.label"
           :class="card.tone"
-          class="rounded-[1.5rem] border p-5 shadow-[0_18px_40px_rgba(2,12,27,0.22)]"
+          class="rounded-[1.35rem] border p-3 shadow-[0_18px_40px_rgba(2,12,27,0.22)] sm:rounded-[1.5rem] sm:p-5"
         >
-          <p class="text-xs font-black uppercase tracking-[0.24em]">{{ card.label }}</p>
-          <p class="mt-3 text-4xl font-black">{{ card.value }}</p>
+          <p class="text-[0.6rem] font-black uppercase tracking-[0.16em] sm:text-xs sm:tracking-[0.24em]">{{ card.label }}</p>
+          <p class="mt-2 text-2xl font-black sm:mt-3 sm:text-4xl">{{ card.value }}</p>
         </article>
       </div>
 
@@ -155,7 +79,7 @@ onMounted(() => {
             <div class="flex items-end justify-between gap-3">
               <div>
                 <p class="panel-label">Continue learning</p>
-                <h2 class="mt-2 text-2xl font-black text-white">Active classroom access</h2>
+                <h2 class="mt-2 text-xl font-black text-white sm:text-2xl">Active classroom access</h2>
               </div>
               <p class="text-sm text-slate-300/72">{{ activeCourses.length }} active</p>
             </div>
@@ -177,9 +101,9 @@ onMounted(() => {
                   </p>
                 </div>
 
-                <RouterLink :to="getCourseRoute(course)" class="dashboard-link-button">
+                <UiButton :to="getCourseRoute(course)" variant="secondary" size="sm">
                   Go to class
-                </RouterLink>
+                </UiButton>
               </article>
             </div>
 
@@ -195,7 +119,7 @@ onMounted(() => {
             <div class="flex items-end justify-between gap-3">
               <div>
                 <p class="panel-label">Payment queue</p>
-                <h2 class="mt-2 text-2xl font-black text-white">Courses waiting for checkout</h2>
+                <h2 class="mt-2 text-xl font-black text-white sm:text-2xl">Courses waiting for checkout</h2>
               </div>
               <p class="text-sm text-slate-300/72">{{ pendingCourses.length }} pending</p>
             </div>
@@ -217,9 +141,9 @@ onMounted(() => {
                   </p>
                 </div>
 
-                <RouterLink :to="getCourseRoute(course)" class="dashboard-link-button dashboard-link-button-amber">
+                <UiButton :to="getCourseRoute(course)" variant="primary" size="sm">
                   Complete payment
-                </RouterLink>
+                </UiButton>
               </article>
             </div>
 
@@ -235,7 +159,7 @@ onMounted(() => {
         <aside class="space-y-6">
           <section class="dashboard-panel">
             <p class="panel-label">Completed</p>
-            <h2 class="mt-2 text-2xl font-black text-white">Finished courses</h2>
+            <h2 class="mt-2 text-xl font-black text-white sm:text-2xl">Finished courses</h2>
 
             <div v-if="completedCourses.length" class="mt-5 space-y-3">
               <RouterLink
@@ -260,7 +184,7 @@ onMounted(() => {
 
           <section class="dashboard-panel">
             <p class="panel-label">Recommended next</p>
-            <h2 class="mt-2 text-2xl font-black text-white">Browse more learning</h2>
+            <h2 class="mt-2 text-xl font-black text-white sm:text-2xl">Browse more learning</h2>
 
             <div class="mt-5 space-y-3">
               <RouterLink
@@ -360,6 +284,17 @@ onMounted(() => {
 
 .dashboard-link-button-amber:hover {
   background: rgba(245, 158, 11, 0.28);
+}
+
+@media (max-width: 639px) {
+  .dashboard-panel {
+    padding: 1.1rem;
+  }
+
+  .panel-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+  }
 }
 
 @media (min-width: 768px) {

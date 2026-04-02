@@ -1,145 +1,28 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from '@/features/auth/stores/auth.store'
-import { courseApiService } from '@/features/courses/api/services/courseApi.service'
+import { useCourseDetailsView } from '@/features/courses/composables/useCourseDetailsView'
+import UiBadge from '@/shared/components/ui/UiBadge.vue'
+import UiButton from '@/shared/components/ui/UiButton.vue'
 
-const route = useRoute()
-const router = useRouter()
-const authStore = useAuthStore()
-
-const course = ref(null)
-const isLoading = ref(true)
-const isOpening = ref(false)
-const errorMessage = ref('')
-
-const courseId = computed(() => route.params.courseId?.toString() ?? '')
-
-const primaryActionLabel = computed(() => {
-  if (isOpening.value) {
-    return 'Opening...'
-  }
-
-  if (!authStore.isAuthenticated) {
-    return 'Sign in to continue'
-  }
-
-  return course.value?.enrollment.primaryActionLabel || 'Continue'
-})
-
-const actionHint = computed(() => {
-  if (!course.value) {
-    return ''
-  }
-
-  if (!authStore.isAuthenticated) {
-    return 'Sign in first, then continue from this course into payment or the classroom.'
-  }
-
-  switch (course.value.enrollment.status) {
-    case 'pending_payment':
-      return 'Continue to checkout to unlock the classroom and lesson materials.'
-    case 'enrolled':
-      return 'Jump back into the classroom and continue your active lesson.'
-    case 'completed':
-      return 'Review your classroom progress or revisit the completion experience.'
-    default:
-      return 'Review the outline, outcomes, and instructor details before enrolling.'
-  }
-})
-
-function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
-
-function getRouteForCourse(currentCourse) {
-  if (currentCourse.enrollment.status === 'completed') {
-    return { name: 'courseCompletion', params: { courseId: currentCourse.id } }
-  }
-
-  if (currentCourse.enrollment.hasAccess) {
-    return { name: 'courseContent', params: { courseId: currentCourse.id } }
-  }
-
-  return { name: 'coursePayment', params: { courseId: currentCourse.id } }
-}
-
-function getStatusBadgeClass(status) {
-  switch (status) {
-    case 'completed':
-      return 'border-emerald-200/30 bg-emerald-300 text-emerald-950'
-    case 'enrolled':
-      return 'border-sky-200/30 bg-sky-100 text-slate-950'
-    case 'pending_payment':
-      return 'border-amber-200/35 bg-amber-300 text-slate-950'
-    default:
-      return 'border-white/15 bg-white/10 text-white'
-  }
-}
-
-async function loadCourse() {
-  isLoading.value = true
-  errorMessage.value = ''
-
-  try {
-    course.value = await courseApiService.getCourseDetails(courseId.value)
-  } catch (error) {
-    errorMessage.value = error.message || 'We could not load this course right now.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-async function handlePrimaryAction() {
-  if (!course.value || isOpening.value) {
-    return
-  }
-
-  isOpening.value = true
-  errorMessage.value = ''
-
-  try {
-    const targetRoute = getRouteForCourse(course.value)
-
-    if (!authStore.isAuthenticated) {
-      await router.push({
-        name: 'signIn',
-        query: {
-          redirect: router.resolve(targetRoute).fullPath,
-        },
-      })
-      return
-    }
-
-    await router.push(targetRoute)
-  } catch (error) {
-    errorMessage.value = error.message || 'We could not open the next course step right now.'
-  } finally {
-    isOpening.value = false
-  }
-}
-
-onMounted(() => {
-  loadCourse()
-})
-
-watch(courseId, () => {
-  loadCourse()
-})
+const {
+  actionHint,
+  course,
+  errorMessage,
+  formatCurrency,
+  getStatusBadgeVariant,
+  handlePrimaryAction,
+  isLoading,
+  isOpening,
+  primaryActionLabel,
+} = useCourseDetailsView()
 </script>
 
 <template>
   <section class="details-shell">
     <div class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <div class="flex items-center justify-between gap-3">
-        <RouterLink
-          :to="{ name: 'courseCatalog' }"
-          class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
-        >
+        <UiButton :to="{ name: 'courseCatalog' }" variant="secondary" size="sm">
           Back to courses
-        </RouterLink>
+        </UiButton>
       </div>
 
       <div
@@ -178,16 +61,13 @@ watch(courseId, () => {
               <p class="text-xs font-bold uppercase tracking-[0.24em] text-sky-200/82">
                 {{ course.category }}
               </p>
-              <span
-                :class="getStatusBadgeClass(course.enrollment.status)"
-                class="rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-[0.18em]"
-              >
+              <UiBadge :variant="getStatusBadgeVariant(course.enrollment.status)">
                 {{ course.enrollment.statusLabel }}
-              </span>
+              </UiBadge>
             </div>
 
-            <h1 class="mt-4 text-4xl font-black text-white sm:text-5xl">{{ course.title }}</h1>
-            <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-200/86">
+            <h1 class="mt-4 text-3xl font-black text-white sm:text-5xl">{{ course.title }}</h1>
+            <p class="mt-4 max-w-3xl text-base leading-7 text-slate-200/86 sm:text-lg sm:leading-8">
               {{ course.headline }}
             </p>
             <p class="mt-5 max-w-3xl text-sm leading-7 text-slate-200/80 sm:text-base">
@@ -212,21 +92,13 @@ watch(courseId, () => {
             </div>
 
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                :disabled="isOpening"
-                class="rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-200 disabled:cursor-not-allowed disabled:opacity-70"
-                @click="handlePrimaryAction"
-              >
+              <UiButton :disabled="isOpening" :loading="isOpening" variant="primary" @click="handlePrimaryAction">
                 {{ primaryActionLabel }}
-              </button>
+              </UiButton>
 
-              <RouterLink
-                :to="{ name: 'courseCatalog' }"
-                class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
+              <UiButton :to="{ name: 'courseCatalog' }" variant="secondary">
                 Browse more courses
-              </RouterLink>
+              </UiButton>
             </div>
 
             <p class="mt-4 text-sm leading-7 text-slate-300/82">

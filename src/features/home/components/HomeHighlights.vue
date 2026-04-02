@@ -62,9 +62,6 @@ const copy = homeCopy.highlights
         <h2 class="text-3xl font-black text-white sm:text-4xl">
           {{ copy.family.title }}
         </h2>
-        <p class="section-copy text-slate-200">
-          {{ copy.family.description }}
-        </p>
         <!-- <p class="section-translation text-red-100">ወለዲ ብናይ ደቆም ጉብዝና ይሕጎሱ</p> -->
 
         <div class="grid gap-3 sm:grid-cols-2">

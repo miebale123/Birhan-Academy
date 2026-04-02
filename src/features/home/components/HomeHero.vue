@@ -1,9 +1,9 @@
 <script setup>
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { RouterLink } from 'vue-router'
 import { useAuthStore } from '@/features/auth/stores/auth.store'
-import AcademyLogo from '@/shared/components/branding/AcademyLogo.vue'
+import AcademyLogo from '@/features/home/components/AcademyLogo.vue'
+import UiButton from '@/shared/components/ui/UiButton.vue'
 import { homeCopy } from '@/features/home/constants/homeCopy'
 
 const authStore = useAuthStore()
@@ -25,16 +25,12 @@ const primaryAction = computed(() => {
     return {
       label: 'Go to my learning',
       to: { name: 'learningDashboard' },
-      className:
-        'inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_20px_50px_rgba(245,158,11,0.28)] transition hover:bg-amber-200',
     }
   }
 
   return {
     label: copy.actions.courses,
     to: { name: 'courseCatalog' },
-    className:
-      'inline-flex rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_20px_50px_rgba(245,158,11,0.28)] transition hover:bg-amber-200',
   }
 })
 
@@ -73,23 +69,17 @@ const secondaryAction = computed(() => {
         </p>
 
         <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
-          <RouterLink
-            :to="primaryAction.to"
-            :class="primaryAction.className"
-          >
+          <UiButton :to="primaryAction.to" variant="primary" size="lg">
             {{ primaryAction.label }}
-          </RouterLink>
-          <RouterLink
-            :to="secondaryAction.to"
-            class="inline-flex rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-          >
+          </UiButton>
+          <UiButton :to="secondaryAction.to" variant="secondary" size="lg">
             {{ secondaryAction.label }}
-          </RouterLink>
+          </UiButton>
         </div>
       </div>
 
       <div class="hero-stage w-full max-w-[30rem] self-center">
-        <div class="holder">
+        <div class="holder" aria-hidden="true">
           <div class="candle">
             <div class="blinking-glow"></div>
             <div class="thread"></div>
@@ -308,6 +298,10 @@ const secondaryAction = computed(() => {
   .hero-stage {
     padding: 1.25rem 0.85rem 0.75rem;
     border-radius: 1.5rem;
+  }
+
+  .holder {
+    display: none;
   }
 
   .holder {

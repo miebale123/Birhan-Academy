@@ -2,6 +2,8 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { sitePages } from '@/features/site/constants/sitePages'
+import UiBadge from '@/shared/components/ui/UiBadge.vue'
+import UiButton from '@/shared/components/ui/UiButton.vue'
 
 const props = defineProps({
   pageKey: {
@@ -16,12 +18,9 @@ const page = computed(() => sitePages[props.pageKey])
 <template>
   <section class="site-page-shell min-h-[calc(100dvh-var(--app-header-height))]">
     <div class="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-      <RouterLink
-        :to="{ name: 'home' }"
-        class="inline-flex w-fit items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
-      >
+      <UiButton :to="{ name: 'home' }" variant="secondary" size="sm" class="w-fit">
         Back to home
-      </RouterLink>
+      </UiButton>
 
       <template v-if="page">
         <section
@@ -38,9 +37,9 @@ const page = computed(() => sitePages[props.pageKey])
           </p>
 
           <div class="mt-6 flex flex-wrap items-center gap-3 text-sm text-slate-300/80">
-            <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+            <UiBadge variant="neutral">
               Updated {{ page.lastUpdated }}
-            </span>
+            </UiBadge>
             <RouterLink
               v-for="link in page.quickLinks"
               :key="link.label"

@@ -1,91 +1,17 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { courseApiService } from '@/features/courses/api/services/courseApi.service'
+import { useCourseContentView } from '@/features/courses/composables/useCourseContentView'
+import UiButton from '@/shared/components/ui/UiButton.vue'
 
-const route = useRoute()
-const router = useRouter()
-
-const course = ref(null)
-const isLoading = ref(true)
-const isSelectingLesson = ref(false)
-const isCompleting = ref(false)
-const errorMessage = ref('')
-
-const courseId = computed(() => route.params.courseId?.toString() ?? '')
-
-const progressSummary = computed(() => {
-  if (!course.value) {
-    return '0 of 0 lessons'
-  }
-
-  const totalLessons = course.value.lessonsCount
-  const lessonOrder = course.value.modules.flatMap((module) => module.lessons)
-  const activeIndex = lessonOrder.findIndex((lesson) => lesson.id === course.value.activeLesson?.id)
-  const currentNumber = activeIndex >= 0 ? activeIndex + 1 : 1
-  return `${currentNumber} of ${totalLessons} lessons`
-})
-
-async function loadClassroom() {
-  isLoading.value = true
-  errorMessage.value = ''
-
-  try {
-    course.value = await courseApiService.getClassroom(courseId.value)
-  } catch (error) {
-    if (error.code === 'PAYMENT_REQUIRED') {
-      await router.replace({ name: 'coursePayment', params: { courseId: courseId.value } })
-      return
-    }
-
-    errorMessage.value = error.message || 'We could not load this classroom right now.'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-async function handleLessonSelection(lessonId) {
-  if (!course.value || isSelectingLesson.value) {
-    return
-  }
-
-  isSelectingLesson.value = true
-  errorMessage.value = ''
-
-  try {
-    course.value = await courseApiService.selectLesson(courseId.value, lessonId)
-  } catch (error) {
-    errorMessage.value = error.message || 'We could not open that lesson right now.'
-  } finally {
-    isSelectingLesson.value = false
-  }
-}
-
-async function handleCourseCompletion() {
-  if (!course.value) {
-    return
-  }
-
-  isCompleting.value = true
-  errorMessage.value = ''
-
-  try {
-    await courseApiService.completeCourse(courseId.value)
-    await router.push({ name: 'courseCompletion', params: { courseId: courseId.value } })
-  } catch (error) {
-    errorMessage.value = error.message || 'We could not complete this course right now.'
-  } finally {
-    isCompleting.value = false
-  }
-}
-
-onMounted(() => {
-  loadClassroom()
-})
-
-watch(courseId, () => {
-  loadClassroom()
-})
+const {
+  course,
+  errorMessage,
+  handleCourseCompletion,
+  handleLessonSelection,
+  isCompleting,
+  isLoading,
+  isSelectingLesson,
+  progressSummary,
+} = useCourseContentView()
 </script>
 
 <template>
@@ -234,14 +160,16 @@ watch(courseId, () => {
                 <p class="mt-3 text-sm leading-7 text-slate-200/90">
                   When you are ready, mark the course complete and move to the celebration screen.
                 </p>
-                <button
-                  type="button"
+                <UiButton
                   :disabled="isCompleting"
-                  class="mt-4 w-full rounded-full bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-200 disabled:cursor-not-allowed disabled:opacity-70"
+                  :loading="isCompleting"
+                  block
+                  class="mt-4"
+                  variant="primary"
                   @click="handleCourseCompletion"
                 >
                   {{ isCompleting ? 'Completing...' : 'Complete course' }}
-                </button>
+                </UiButton>
               </section>
             </div>
           </div>
