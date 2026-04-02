@@ -1,31 +1,76 @@
 import { ENROLLMENT_STATUSES } from '@/features/courses/api/dto/enrollment.dto'
+import { authApiService } from '@/features/auth/api/services/authApi.service'
 import { mockCourseDtos } from '@/features/courses/api/mock/courses.mock'
 
 const STORAGE_KEY = 'birhan-academy.mock-enrollments'
+const LEGACY_SCOPE_KEY = '__legacy__'
 
 function getDefaultActiveLessonId(courseDto) {
   return courseDto.modules[0]?.lessons[0]?.id ?? null
 }
 
+function getCurrentUserStorageScope() {
+  return authApiService.getCurrentUser()?.id ?? null
+}
+
+function normalizeStoragePayload(payload) {
+  if (Array.isArray(payload)) {
+    return {
+      [LEGACY_SCOPE_KEY]: payload,
+    }
+  }
+
+  return payload && typeof payload === 'object' ? payload : {}
+}
+
 function readRawStorage() {
   if (typeof window === 'undefined') {
-    return []
+    return {}
   }
 
   try {
     const serialized = window.localStorage.getItem(STORAGE_KEY)
-    return serialized ? JSON.parse(serialized) : []
+    return serialized ? normalizeStoragePayload(JSON.parse(serialized)) : {}
   } catch {
-    return []
+    return {}
   }
 }
 
-function writeRawStorage(enrollmentDtos) {
+function writeRawStorage(enrollmentByScope) {
   if (typeof window === 'undefined') {
     return
   }
 
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(enrollmentDtos))
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(enrollmentByScope))
+}
+
+function getScopedEnrollmentDtos(storage, scope) {
+  if (!scope) {
+    return []
+  }
+
+  return Array.isArray(storage[scope]) ? storage[scope] : []
+}
+
+function getMutableStorageForCurrentUser() {
+  const storage = readRawStorage()
+  const scope = getCurrentUserStorageScope()
+
+  if (!scope) {
+    return { scope, storage, enrollmentDtos: [] }
+  }
+
+  if (!storage[scope] && Array.isArray(storage[LEGACY_SCOPE_KEY])) {
+    storage[scope] = storage[LEGACY_SCOPE_KEY]
+    delete storage[LEGACY_SCOPE_KEY]
+    writeRawStorage(storage)
+  }
+
+  return {
+    scope,
+    storage,
+    enrollmentDtos: [...getScopedEnrollmentDtos(storage, scope)],
+  }
 }
 
 export function listCourseDtos() {
@@ -43,16 +88,21 @@ export function getCourseDto(courseId) {
 }
 
 export function listEnrollmentDtos() {
-  return readRawStorage()
+  return getMutableStorageForCurrentUser().enrollmentDtos
 }
 
 export function getEnrollmentDto(courseId) {
-  return readRawStorage().find((item) => item.courseId === courseId) ?? null
+  return listEnrollmentDtos().find((item) => item.courseId === courseId) ?? null
 }
 
 export function upsertEnrollmentDto(courseId, updater) {
   const courseDto = getCourseDto(courseId)
-  const enrollmentDtos = readRawStorage()
+  const { scope, storage, enrollmentDtos } = getMutableStorageForCurrentUser()
+
+  if (!scope) {
+    throw new Error('Sign in to manage course enrollment.')
+  }
+
   const index = enrollmentDtos.findIndex((item) => item.courseId === courseId)
   const existing =
     index >= 0
@@ -75,7 +125,8 @@ export function upsertEnrollmentDto(courseId, updater) {
     enrollmentDtos.push(next)
   }
 
-  writeRawStorage(enrollmentDtos)
+  storage[scope] = enrollmentDtos
+  writeRawStorage(storage)
   return next
 }
 
