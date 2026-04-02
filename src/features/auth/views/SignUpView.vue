@@ -2,7 +2,7 @@
   <section class="signup-shell">
     <div class="signup-stage">
       <div class="signup-card">
-        <p class="signup-kicker">{{ copy.kicker }}</p>
+        <h1 class="signup-title">{{ copy.kicker }}</h1>
 
         <p
           v-if="feedback.message"
@@ -15,76 +15,66 @@
 
         <form @submit.prevent="handleSignup" class="signup-form" novalidate>
           <div class="field-grid">
-            <div class="field">
-              <label for="name">{{ copy.fields.name.label }}</label>
-              <div class="input-shell">
-                <span class="input-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="img">
-                    <path
-                      fill="currentColor"
-                      d="M12 12.5a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm0 2.25c-4.25 0-7.75 2.53-7.75 5.62 0 .35.28.63.63.63h14.24c.35 0 .63-.28.63-.63 0-3.09-3.5-5.62-7.75-5.62Z"
-                    />
-                  </svg>
-                </span>
-                <input
-                  id="name"
-                  v-model.trim="formData.name"
-                  type="text"
-                  autocomplete="name"
-                  :placeholder="copy.fields.name.placeholder"
-                  required
-                  class="input-field"
-                />
-              </div>
-            </div>
+            <UiInputField
+              id="name"
+              v-model="formData.name"
+              :label="copy.fields.name.label"
+              :placeholder="copy.fields.name.placeholder"
+              autocomplete="name"
+              required
+            >
+              <template #leading>
+                <svg viewBox="0 0 24 24" role="img">
+                  <path
+                    fill="currentColor"
+                    d="M12 12.5a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm0 2.25c-4.25 0-7.75 2.53-7.75 5.62 0 .35.28.63.63.63h14.24c.35 0 .63-.28.63-.63 0-3.09-3.5-5.62-7.75-5.62Z"
+                  />
+                </svg>
+              </template>
+            </UiInputField>
 
-            <div class="field">
-              <label for="email">{{ copy.fields.email.label }}</label>
-              <div class="input-shell">
-                <span class="input-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="img">
-                    <path
-                      fill="currentColor"
-                      d="M3.75 6.5A2.75 2.75 0 0 1 6.5 3.75h11A2.75 2.75 0 0 1 20.25 6.5v11A2.75 2.75 0 0 1 17.5 20.25h-11A2.75 2.75 0 0 1 3.75 17.5v-11Zm2.19-.56 5.62 4.4a.7.7 0 0 0 .88 0l5.62-4.4a1.24 1.24 0 0 0-.56-.13h-11c-.2 0-.39.05-.56.13Zm12.81 1.39-5.43 4.25a2.2 2.2 0 0 1-2.64 0L5.25 7.33v10.17c0 .69.56 1.25 1.25 1.25h11c.69 0 1.25-.56 1.25-1.25V7.33Z"
-                    />
-                  </svg>
-                </span>
-                <input
-                  id="email"
-                  v-model.trim="formData.email"
-                  type="email"
-                  autocomplete="email"
-                  inputmode="email"
-                  :placeholder="copy.fields.email.placeholder"
-                  required
-                  class="input-field"
-                />
-              </div>
-            </div>
+            <UiInputField
+              id="email"
+              v-model="formData.email"
+              :label="copy.fields.email.label"
+              :placeholder="copy.fields.email.placeholder"
+              autocomplete="email"
+              inputmode="email"
+              required
+              type="email"
+            >
+              <template #leading>
+                <svg viewBox="0 0 24 24" role="img">
+                  <path
+                    fill="currentColor"
+                    d="M3.75 6.5A2.75 2.75 0 0 1 6.5 3.75h11A2.75 2.75 0 0 1 20.25 6.5v11A2.75 2.75 0 0 1 17.5 20.25h-11A2.75 2.75 0 0 1 3.75 17.5v-11Zm2.19-.56 5.62 4.4a.7.7 0 0 0 .88 0l5.62-4.4a1.24 1.24 0 0 0-.56-.13h-11c-.2 0-.39.05-.56.13Zm12.81 1.39-5.43 4.25a2.2 2.2 0 0 1-2.64 0L5.25 7.33v10.17c0 .69.56 1.25 1.25 1.25h11c.69 0 1.25-.56 1.25-1.25V7.33Z"
+                  />
+                </svg>
+              </template>
+            </UiInputField>
 
-            <div class="field">
-              <label for="password">{{ copy.fields.password.label }}</label>
-              <div class="input-shell">
-                <span class="input-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="img">
-                    <path
-                      fill="currentColor"
-                      d="M7.5 10V8.75a4.5 4.5 0 1 1 9 0V10h.75A2.75 2.75 0 0 1 20 12.75v5.5A2.75 2.75 0 0 1 17.25 21h-10.5A2.75 2.75 0 0 1 4 18.25v-5.5A2.75 2.75 0 0 1 6.75 10h.75Zm1.5 0h6V8.75a3 3 0 1 0-6 0V10Zm3 3a1.75 1.75 0 0 0-.75 3.33V17.5a.75.75 0 0 0 1.5 0v-1.17A1.75 1.75 0 0 0 12 13Z"
-                    />
-                  </svg>
-                </span>
-                <input
-                  id="password"
-                  v-model="formData.password"
-                  :type="showPassword ? 'text' : 'password'"
-                  autocomplete="new-password"
-                  :placeholder="copy.fields.password.placeholder"
-                  required
-                  class="input-field input-field-password"
-                />
+            <UiInputField
+              id="password"
+              v-model="formData.password"
+              :hint="copy.fields.passwordHint"
+              :label="copy.fields.password.label"
+              :placeholder="copy.fields.password.placeholder"
+              :type="showPassword ? 'text' : 'password'"
+              autocomplete="new-password"
+              required
+            >
+              <template #leading>
+                <svg viewBox="0 0 24 24" role="img">
+                  <path
+                    fill="currentColor"
+                    d="M7.5 10V8.75a4.5 4.5 0 1 1 9 0V10h.75A2.75 2.75 0 0 1 20 12.75v5.5A2.75 2.75 0 0 1 17.25 21h-10.5A2.75 2.75 0 0 1 4 18.25v-5.5A2.75 2.75 0 0 1 6.75 10h.75Zm1.5 0h6V8.75a3 3 0 1 0-6 0V10Zm3 3a1.75 1.75 0 0 0-.75 3.33V17.5a.75.75 0 0 0 1.5 0v-1.17A1.75 1.75 0 0 0 12 13Z"
+                  />
+                </svg>
+              </template>
+
+              <template #trailing>
                 <button
                   type="button"
-                  class="password-toggle"
                   :aria-label="showPassword ? 'Hide password' : 'Show password'"
                   @click="togglePasswordVisibility"
                 >
@@ -122,9 +112,8 @@
                     />
                   </svg>
                 </button>
-              </div>
-              <p class="field-hint">{{ copy.fields.passwordHint }}</p>
-            </div>
+              </template>
+            </UiInputField>
           </div>
 
           <label class="agreement-row" for="agreement">
@@ -138,9 +127,9 @@
             <span>{{ copy.agreement }}</span>
           </label>
 
-          <button type="submit" class="submit-button" :disabled="isSubmitting">
+          <UiButton type="submit" :disabled="isSubmitting" :loading="isSubmitting" block variant="primary">
             {{ isSubmitting ? copy.submittingLabel : copy.submitLabel }}
-          </button>
+          </UiButton>
         </form>
 
         <div class="social-divider" aria-hidden="true">
@@ -212,102 +201,22 @@
   </section>
 </template>
 
-<script>
-import { authCopy, authFeedbackCopy } from '@/features/auth/constants/authCopy'
-import { useAuthStore } from '@/features/auth/stores/auth.store'
+<script setup>
+import { useSignUpView } from '@/features/auth/composables/useSignUpView'
+import UiButton from '@/shared/components/ui/UiButton.vue'
+import UiInputField from '@/shared/components/ui/UiInputField.vue'
 
-export default {
-  data() {
-    return {
-      copy: authCopy.signUp,
-      feedbackCopy: authFeedbackCopy.signUp,
-      formData: {
-        name: '',
-        email: '',
-        password: '',
-      },
-      showPassword: false,
-      agreement: false,
-      isSubmitting: false,
-      feedback: {
-        type: 'info',
-        message: '',
-      },
-    }
-  },
-  methods: {
-    setFeedback(type, message) {
-      this.feedback = { type, message }
-    },
-    clearFeedback() {
-      if (this.feedback.message) {
-        this.feedback.message = ''
-      }
-    },
-    handleSocialSignup(provider) {
-      this.setFeedback('info', this.feedbackCopy.socialSignupComingSoon(provider))
-    },
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword
-    },
-    resetForm() {
-      this.formData = {
-        name: '',
-        email: '',
-        password: '',
-      }
-      this.showPassword = false
-      this.agreement = false
-    },
-    getRedirectTarget() {
-      const redirect = this.$route.query.redirect
-      return typeof redirect === 'string' && redirect.startsWith('/')
-        ? redirect
-        : { name: 'learningDashboard' }
-    },
-    async handleSignup() {
-      this.clearFeedback()
-
-      if (!this.formData.name.trim()) {
-        this.setFeedback('error', this.feedbackCopy.nameRequired)
-        return
-      }
-      if (!this.formData.email.trim()) {
-        this.setFeedback('error', this.feedbackCopy.emailRequired)
-        return
-      }
-      if (this.formData.password.length < 8) {
-        this.setFeedback('error', this.feedbackCopy.passwordTooShort)
-        return
-      }
-      if (!this.agreement) {
-        this.setFeedback('error', this.feedbackCopy.agreementRequired)
-        return
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(this.formData.email)) {
-        this.setFeedback('error', this.feedbackCopy.invalidEmail)
-        return
-      }
-
-      const userData = { ...this.formData, userType: 'freelancer' }
-      this.isSubmitting = true
-
-      try {
-        const authStore = useAuthStore()
-        await authStore.signUp(userData)
-        this.resetForm()
-        await this.$router.push(this.getRedirectTarget())
-      } catch (error) {
-        console.error('Registration error:', error)
-        this.setFeedback('error', error.message)
-      } finally {
-        this.isSubmitting = false
-      }
-    },
-  },
-}
+const {
+  agreement,
+  copy,
+  feedback,
+  formData,
+  handleSignup,
+  handleSocialSignup,
+  isSubmitting,
+  showPassword,
+  togglePasswordVisibility,
+} = useSignUpView()
 </script>
 
 <style scoped>
@@ -342,20 +251,10 @@ export default {
   backdrop-filter: blur(18px);
 }
 
-.signup-kicker {
-  margin: 0 0 0.4rem;
-  text-align: center;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(251, 191, 36, 0.86);
-}
-
 .signup-title {
-  margin: 0;
+  margin: 0 0 1.1rem;
   text-align: center;
-  font-size: clamp(1.55rem, 4vw, 2.05rem);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
   line-height: 1.12;
   font-weight: 900;
   color: #fff;
@@ -501,111 +400,6 @@ export default {
   gap: 0.85rem;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-.field label {
-  margin-bottom: 0.4rem;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(241, 245, 249, 0.95);
-}
-
-.input-shell {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  left: 0.88rem;
-  top: 50%;
-  display: inline-flex;
-  height: 1rem;
-  width: 1rem;
-  align-items: center;
-  justify-content: center;
-  color: rgba(100, 116, 139, 0.95);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.input-icon svg {
-  height: 100%;
-  width: 100%;
-}
-
-.input-field {
-  width: 100%;
-  min-height: 3rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.26);
-  background: rgba(248, 250, 252, 0.98);
-  padding: 0.78rem 0.95rem 0.78rem 2.55rem;
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: #0f172a;
-  outline: none;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
-}
-
-.input-field::placeholder {
-  color: rgba(100, 116, 139, 0.82);
-}
-
-.input-field-password {
-  padding-right: 3.4rem;
-}
-
-.input-field:focus {
-  border-color: rgba(251, 191, 36, 0.9);
-  background: #fff;
-  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.16);
-  transform: translateY(-1px);
-}
-
-.password-toggle {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  display: inline-flex;
-  height: 2.2rem;
-  width: 2.2rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.08);
-  color: #334155;
-  transform: translateY(-50%);
-  transition:
-    background-color 0.18s ease,
-    color 0.18s ease;
-}
-
-.password-toggle:hover {
-  background: rgba(15, 23, 42, 0.12);
-  color: #0f172a;
-}
-
-.password-toggle svg {
-  height: 1rem;
-  width: 1rem;
-}
-
-.field-hint {
-  margin: 0.45rem 0 0;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: rgba(203, 213, 225, 0.72);
-}
-
 .agreement-row {
   display: flex;
   align-items: flex-start;
@@ -625,31 +419,6 @@ export default {
   accent-color: #fbbf24;
 }
 
-.submit-button {
-  width: 100%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #f8cc45 0%, #f5b93f 100%);
-  padding: 0.95rem 1rem;
-  font-size: 0.96rem;
-  font-weight: 800;
-  color: #0f172a;
-  box-shadow: 0 16px 32px rgba(245, 185, 63, 0.26);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.submit-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 36px rgba(245, 185, 63, 0.3);
-}
-
-.submit-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.72;
-  transform: none;
-}
 
 .auth-switch {
   margin: 0.95rem 0 0;
@@ -726,10 +495,6 @@ export default {
   .signup-shell {
     padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
     padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
-  }
-
-  .signup-kicker {
-    margin-bottom: 0.3rem;
   }
 
   .signup-title {

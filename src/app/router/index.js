@@ -2,10 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import pinia from '@/app/pinia'
 import { useAuthStore } from '@/features/auth/stores/auth.store'
 import HomeView from '@/features/home/views/HomeView.vue'
-
-function getSafeRedirectPath(value) {
-  return typeof value === 'string' && value.startsWith('/') ? value : null
-}
+import { getSafeRedirectPath } from '@/shared/utils/getSafeRedirectPath'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

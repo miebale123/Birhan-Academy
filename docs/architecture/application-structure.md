@@ -41,11 +41,18 @@ Feature-based modules:
 
 ### `src/shared/components`
 
-Reusable or shared UI building blocks:
+Reusable cross-feature UI primitives:
+
+- `ui/UiButton.vue`
+- `ui/UiInputField.vue`
+- `ui/UiBadge.vue`
+
+### `src/app/components`
+
+Application shell components:
 
 - `layout/AppHeader.vue`
 - `layout/AppFooter.vue`
-- `branding/AcademyLogo.vue`
 
 ### `src/assets`
 
@@ -96,8 +103,9 @@ Cross-feature configuration such as API endpoints.
 
 ### `CourseCard.vue`
 
-- acts as a reusable visual card wrapper for course listings
+- owns the course listing card surface for the courses feature
 
 ### `AcademyLogo.vue`
 
 - renders the academy name in Ethiopic script with animation
+- currently belongs to the home feature because it is only used there

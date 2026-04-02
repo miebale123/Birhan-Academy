@@ -12,8 +12,6 @@ export const homeCopy = {
     intro: {
       eyebrow: 'Purposeful learning',
       title: 'Lessons that strengthen understanding, practice, and progress across every subject',
-      description:
-        'From first concepts to final milestones, learners move through lessons that explain clearly, reinforce key ideas, and help them build lasting academic confidence.',
       learningPillars: [
         {
           title: 'Strong foundations',
@@ -33,8 +31,6 @@ export const homeCopy = {
       imageAlt: 'Family supporting a student learning at home',
       eyebrow: 'Support for families',
       title: 'Learning progress that families can encourage, follow, and celebrate together',
-      description:
-        'Education becomes more powerful when families can see growth clearly. Birhan Academy helps parents and students stay connected to progress, effort, and achievement.',
       benefits: [
         'Parents can follow the subjects, lessons, and goals their children are working through.',
         'Students build confidence through consistent study habits and achievable milestones.',
